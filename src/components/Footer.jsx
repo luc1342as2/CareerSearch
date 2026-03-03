@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
-import TrustBadges from './TrustBadges';
 import './Footer.css';
 
 export default function Footer() {
   return (
     <footer className="footer">
       <div className="footer-container">
-        <TrustBadges variant="footer" />
         <div className="footer-links">
+          <Link to="/blog">Blog</Link>
+          <span className="footer-divider">•</span>
           <Link to="/pricing">Pricing</Link>
           <span className="footer-divider">•</span>
           <Link to="/privacy">Privacy Policy</Link>

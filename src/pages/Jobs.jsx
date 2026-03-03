@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { useApp } from '../context/AppContext';
 import './Jobs.css';
 
@@ -117,8 +118,15 @@ export default function Jobs() {
           <h1>Job Listings</h1>
           <p className="jobs-count">{filteredJobs.length} jobs found</p>
           <div className="jobs-grid">
-            {filteredJobs.map((job) => (
-              <div key={job.id} className="job-card card">
+            {filteredJobs.map((job, i) => (
+              <motion.div
+                key={job.id}
+                className="job-card card"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.05, duration: 0.35 }}
+                whileHover={{ y: -4, transition: { duration: 0.2 } }}
+              >
                 <div className="job-card-header">
                   <div>
                     <h3>
@@ -155,7 +163,7 @@ export default function Jobs() {
                     {!isAuthenticated ? 'Login to Save' : (savedJobs.includes(job.id) ? '✓ Saved' : 'Save')}
                   </button>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </section>

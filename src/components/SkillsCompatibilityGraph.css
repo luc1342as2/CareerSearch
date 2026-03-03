@@ -1,12 +1,12 @@
 .skills-graph h2 {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #f8fafc;
+  color: var(--text-primary);
   margin: 0 0 0.25rem 0;
 }
 
 .graph-subtitle {
-  color: #94a3b8;
+  color: var(--text-secondary);
   font-size: 0.9rem;
   margin: 0 0 1.5rem 0;
 }
@@ -31,22 +31,22 @@
 
 .skill-name {
   font-weight: 500;
-  color: #f8fafc;
+  color: var(--text-primary);
   font-size: 0.95rem;
 }
 
 .required-badge {
   font-size: 0.7rem;
   padding: 0.2rem 0.5rem;
-  background: rgba(56, 189, 248, 0.2);
-  color: #38bdf8;
+  background: var(--accent-bg);
+  color: var(--accent);
   border-radius: 0.25rem;
 }
 
 .bar-container {
   position: relative;
   height: 1.5rem;
-  background: rgba(30, 41, 59, 0.8);
+  background: var(--input-bg);
   border-radius: 0.5rem;
   overflow: hidden;
 }
@@ -57,19 +57,27 @@
   transition: width 0.5s ease-out;
 }
 
-.bar-fill[data-match="95"],
-.bar-fill[data-match="92"],
-.bar-fill[data-match="90"] {
+.bar-fill.high {
   background: linear-gradient(90deg, #22c55e, #4ade80);
 }
 
-.bar-fill[data-match="88"],
-.bar-fill[data-match="85"] {
+.bar-fill.medium {
   background: linear-gradient(90deg, #38bdf8, #7dd3fc);
 }
 
-.bar-fill[data-match="75"] {
+.bar-fill.low {
   background: linear-gradient(90deg, #f59e0b, #facc15);
+}
+
+.skills-empty {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.skills-empty p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin: 0;
 }
 
 .bar-value {
@@ -79,8 +87,8 @@
   transform: translateY(-50%);
   font-size: 0.75rem;
   font-weight: 600;
-  color: #f8fafc;
-  text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+  color: var(--text-primary);
+  text-shadow: 0 0 4px var(--shadow);
 }
 
 .profile-strength {
@@ -89,11 +97,11 @@
   gap: 1rem;
   margin-top: 1.5rem;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(148, 163, 184, 0.1);
+  border-top: 1px solid var(--border);
 }
 
 .profile-strength > span:first-child {
-  color: #94a3b8;
+  color: var(--text-secondary);
   font-size: 0.9rem;
   min-width: 120px;
 }
@@ -101,20 +109,20 @@
 .strength-bar {
   flex: 1;
   height: 0.75rem;
-  background: rgba(30, 41, 59, 0.8);
+  background: var(--input-bg);
   border-radius: 9999px;
   overflow: hidden;
 }
 
 .strength-fill {
   height: 100%;
-  background: linear-gradient(90deg, #38bdf8, #818cf8);
+  background: var(--gradient-accent);
   border-radius: 9999px;
   transition: width 0.5s ease-out;
 }
 
 .strength-value {
   font-weight: 600;
-  color: #38bdf8;
+  color: var(--accent);
   font-size: 1rem;
 }

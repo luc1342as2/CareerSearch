@@ -1,7 +1,14 @@
 import { useState } from 'react';
 import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { useApp } from '../context/AppContext';
 import './JobDetails.css';
+
+const TABS = [
+  { id: 'description', label: 'Description' },
+  { id: 'requirements', label: 'Requirements' },
+  { id: 'benefits', label: 'Benefits' },
+];
 
 export default function JobDetails() {
   const { id } = useParams();
@@ -10,6 +17,7 @@ export default function JobDetails() {
   const location = useLocation();
   const job = jobs.find((j) => j.id === id);
   const [aiInsights, setAiInsights] = useState(null);
+  const [activeTab, setActiveTab] = useState('description');
 
   const handleGetAIInsights = () => {
     const result = getAdvancedAIInsights(job?.id);
@@ -59,28 +67,66 @@ export default function JobDetails() {
         </header>
 
         <div className="job-details-content">
-          <section className="job-section card">
-            <h3>Job Description</h3>
-            <p className="job-description">{job.description}</p>
-          </section>
+          <div className="job-tabs">
+            {TABS.map((tab) => (
+              <button
+                key={tab.id}
+                className={`job-tab ${activeTab === tab.id ? 'active' : ''}`}
+                onClick={() => setActiveTab(tab.id)}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
 
-          <section className="job-section card">
-            <h3>Required Skills</h3>
-            <div className="skills-highlighted">
-              {job.skills.map((skill) => (
-                <span key={skill} className="skill-tag highlighted">{skill}</span>
-              ))}
-            </div>
-          </section>
-
-          <section className="job-section card">
-            <h3>Benefits</h3>
-            <ul className="benefits-list">
-              {job.benefits.map((benefit) => (
-                <li key={benefit}>{benefit}</li>
-              ))}
-            </ul>
-          </section>
+          <div className="job-tab-content">
+            {activeTab === 'description' && (
+              <motion.section
+                className="job-section card"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.2 }}
+              >
+                <h3>Job Description</h3>
+                <p className="job-description">{job.description}</p>
+              </motion.section>
+            )}
+            {activeTab === 'requirements' && (
+              <motion.section
+                className="job-section card"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.2 }}
+              >
+                <h3>Required Skills</h3>
+                <div className="skills-highlighted">
+                  {job.skills.map((skill) => (
+                    <span key={skill} className="skill-tag highlighted">{skill}</span>
+                  ))}
+                </div>
+                <div className="job-meta-inline">
+                  <p><span>Experience:</span> {job.experienceLevel}</p>
+                  <p><span>Posted:</span> {job.postedDate}</p>
+                  <p><span>Deadline:</span> {job.deadline}</p>
+                </div>
+              </motion.section>
+            )}
+            {activeTab === 'benefits' && (
+              <motion.section
+                className="job-section card"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.2 }}
+              >
+                <h3>Benefits</h3>
+                <ul className="benefits-list">
+                  {job.benefits.map((benefit) => (
+                    <li key={benefit}>{benefit}</li>
+                  ))}
+                </ul>
+              </motion.section>
+            )}
+          </div>
 
           <section className="job-section card match-explanation">
             <h3>Why this job matches you</h3>
@@ -101,12 +147,6 @@ export default function JobDetails() {
                 </ul>
               </div>
             )}
-          </section>
-
-          <section className="job-section job-meta-section">
-            <p><span>Experience:</span> {job.experienceLevel}</p>
-            <p><span>Posted:</span> {job.postedDate}</p>
-            <p><span>Deadline:</span> {job.deadline}</p>
           </section>
         </div>
 

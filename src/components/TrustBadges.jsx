@@ -1,14 +1,15 @@
+import { Link } from 'react-router-dom';
 import './TrustBadges.css';
 
 const badges = [
-  { icon: '✓', label: 'GDPR compliance verified' },
-  { icon: '🔒', label: 'Encrypted CV & message storage' },
-  { icon: '🤖', label: 'AI matching tested with real data' },
-  { icon: '📱', label: 'Mobile responsiveness tested' },
-  { icon: '🔔', label: 'Push notifications active' },
-  { icon: '🌐', label: 'Multi-language localization' },
-  { icon: '💳', label: 'Payment system integrated' },
-  { icon: '⚡', label: 'Performance load testing completed' },
+  { icon: '✓', label: 'GDPR compliance verified', id: '5' },
+  { icon: '🔒', label: 'Encrypted CV & message storage', id: '6' },
+  { icon: '🤖', label: 'AI matching tested with real data', id: '7' },
+  { icon: '📱', label: 'Mobile responsiveness tested', id: '8' },
+  { icon: '🔔', label: 'Push notifications active', id: '9' },
+  { icon: '🌐', label: 'Multi-language localization', id: '10' },
+  { icon: '💳', label: 'Payment system integrated', id: '11' },
+  { icon: '⚡', label: 'Performance load testing completed', id: '12' },
 ];
 
 export default function TrustBadges({ variant = 'footer' }) {
@@ -25,7 +26,10 @@ export default function TrustBadges({ variant = 'footer' }) {
               <div className="trust-badge-icon-wrap">
                 <span className="trust-badge-icon">{badge.icon}</span>
               </div>
-              <span className="trust-badge-label">{badge.label}</span>
+              <div className="trust-badge-content">
+                <span className="trust-badge-label">{badge.label}</span>
+                <Link to={`/blog/${badge.id}`} className="trust-badge-read-more">Read more</Link>
+              </div>
             </div>
           ))}
         </div>

@@ -1,6 +1,12 @@
 .recruiter-dashboard {
   flex: 1;
-  padding: 1.5rem;
+  padding: 1rem 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .recruiter-dashboard {
+    padding: 1rem;
+  }
 }
 
 .recruiter-container {
@@ -20,13 +26,13 @@
 .recruiter-header h1 {
   font-size: 1.75rem;
   font-weight: 700;
-  color: #f8fafc;
+  color: var(--text-primary);
   margin: 0;
 }
 
 .post-job-btn {
   padding: 0.75rem 1.5rem;
-  background: linear-gradient(135deg, #38bdf8, #818cf8);
+  background: var(--gradient-accent);
   color: white;
   border: none;
   border-radius: 0.5rem;
@@ -40,8 +46,8 @@
 
 .subscriber-badge {
   padding: 0.35rem 0.75rem;
-  background: rgba(74, 222, 128, 0.2);
-  color: #4ade80;
+  background: var(--success-bg);
+  color: var(--success-color);
   border-radius: 9999px;
   font-size: 0.8rem;
   font-weight: 600;
@@ -52,41 +58,101 @@
 .ai-badge {
   padding: 0.2rem 0.5rem;
   background: rgba(56, 189, 248, 0.2);
-  color: #38bdf8;
+  color: var(--accent);
   border-radius: 0.25rem;
   font-size: 0.7rem;
   font-weight: 600;
   margin-left: 0.5rem;
 }
 
-.candidate-row {
-  position: relative;
+.candidates-table-wrapper {
+  overflow-x: auto;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
 }
 
-.candidate-row.locked {
+.candidates-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.candidates-table th,
+.candidates-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.candidates-table th {
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.candidates-table th.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.candidates-table th.sortable:hover {
+  color: var(--accent);
+}
+
+.candidates-table tbody tr {
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.candidates-table tbody tr:hover {
+  background: var(--hover-bg);
+}
+
+.candidates-table tbody tr.selected {
+  background: var(--accent-bg);
+}
+
+.candidates-table tbody tr.locked {
   opacity: 0.85;
-}
-
-.candidate-row.locked .candidate-row-content {
-  filter: blur(4px);
   pointer-events: none;
 }
 
-.lock-overlay {
-  position: absolute;
-  right: 0.75rem;
-  top: 50%;
-  transform: translateY(-50%);
+.candidates-table tbody tr.locked td:not(:last-child) {
+  filter: blur(3px);
+}
+
+.lock-badge {
   font-size: 0.75rem;
-  color: #94a3b8;
-  background: rgba(30, 41, 59, 0.95);
+  color: var(--text-secondary);
+  background: var(--input-bg);
   padding: 0.35rem 0.6rem;
   border-radius: 0.25rem;
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  border: 1px solid var(--input-border);
+}
+
+.match-badge {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.match-badge.high {
+  background: var(--success-bg);
+  color: var(--success-color);
+}
+
+.match-badge.medium {
+  background: var(--warning-bg);
+  color: var(--warning-color);
 }
 
 .post-job-modal .post-job-desc {
-  color: #94a3b8;
+  color: var(--text-secondary);
   margin-bottom: 1rem;
 }
 
@@ -101,12 +167,12 @@
   align-items: center;
   gap: 1rem;
   padding: 1rem;
-  background: rgba(30, 41, 59, 0.5);
-  border: 2px solid rgba(148, 163, 184, 0.2);
+  background: var(--input-bg);
+  border: 2px solid var(--input-border);
   border-radius: 0.5rem;
   cursor: pointer;
   text-align: left;
-  color: #f8fafc;
+  color: var(--text-primary);
   transition: all 0.2s;
 }
 
@@ -126,7 +192,7 @@
 
 .post-option span:last-child {
   font-size: 0.85rem;
-  color: #94a3b8;
+  color: var(--text-secondary);
 }
 
 .post-option.featured {
@@ -169,12 +235,12 @@
   display: block;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #f8fafc;
+  color: var(--text-primary);
 }
 
 .analytics-label {
   font-size: 0.85rem;
-  color: #94a3b8;
+  color: var(--text-secondary);
 }
 
 .recruiter-main-layout {
@@ -199,7 +265,7 @@
 .candidates-list h2 {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #f8fafc;
+  color: var(--text-primary);
   margin: 0 0 1rem 0;
 }
 
@@ -212,7 +278,7 @@
 }
 
 .posted-job-item:hover {
-  background: rgba(148, 163, 184, 0.08);
+  background: var(--hover-bg);
 }
 
 .posted-job-item.active {
@@ -223,25 +289,25 @@
 .posted-job-item h3 {
   font-size: 0.95rem;
   font-weight: 600;
-  color: #f8fafc;
+  color: var(--text-primary);
   margin: 0 0 0.25rem 0;
 }
 
 .posted-job-item p {
   font-size: 0.85rem;
-  color: #94a3b8;
+  color: var(--text-secondary);
   margin: 0 0 0.5rem 0;
 }
 
 .job-item-stats {
   font-size: 0.75rem;
-  color: #64748b;
+  color: var(--text-muted);
 }
 
 .filters-panel h3 {
   font-size: 0.95rem;
   font-weight: 600;
-  color: #f8fafc;
+  color: var(--text-primary);
   margin: 0 0 1rem 0;
 }
 
@@ -252,17 +318,17 @@
 .filter-row label {
   display: block;
   font-size: 0.8rem;
-  color: #94a3b8;
+  color: var(--text-secondary);
   margin-bottom: 0.35rem;
 }
 
 .filter-row select {
   width: 100%;
   padding: 0.5rem;
-  background: rgba(30, 41, 59, 0.8);
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
   border-radius: 0.375rem;
-  color: #f8fafc;
+  color: var(--text-primary);
   font-size: 0.9rem;
 }
 
@@ -272,58 +338,11 @@
   gap: 1rem;
 }
 
-.candidate-row {
-  padding: 1rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  border: 1px solid transparent;
-  transition: all 0.2s;
-}
-
-.candidate-row:hover {
-  background: rgba(148, 163, 184, 0.06);
-}
-
-.candidate-row.selected {
-  background: rgba(56, 189, 248, 0.1);
-  border-color: rgba(56, 189, 248, 0.3);
-}
-
-.candidate-row-main {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-.candidate-match {
-  font-weight: 700;
-  color: #4ade80;
-  font-size: 1rem;
-  min-width: 40px;
-}
-
-.candidate-row strong {
-  color: #f8fafc;
-  font-size: 0.95rem;
-}
-
-.candidate-row p {
-  font-size: 0.8rem;
-  color: #94a3b8;
-  margin: 0.25rem 0 0 0;
-}
-
-.candidate-row-skills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-}
 
 .skill-pill {
   padding: 0.2rem 0.5rem;
   background: rgba(56, 189, 248, 0.15);
-  color: #38bdf8;
+  color: var(--accent);
   border-radius: 0.25rem;
   font-size: 0.75rem;
 }
@@ -337,7 +356,7 @@
 .candidate-preview h3 {
   font-size: 1rem;
   font-weight: 600;
-  color: #f8fafc;
+  color: var(--text-primary);
   margin: 0 0 1rem 0;
 }
 
@@ -352,7 +371,7 @@
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #38bdf8, #818cf8);
+  background: var(--gradient-accent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -362,22 +381,22 @@
 }
 
 .preview-match.high {
-  color: #4ade80;
+  color: var(--success-color);
 }
 
 .preview-match.medium {
-  color: #facc15;
+  color: var(--warning-color);
 }
 
 .preview-details p,
 .preview-skills strong {
   font-size: 0.9rem;
-  color: #94a3b8;
+  color: var(--text-secondary);
   margin: 0.5rem 0;
 }
 
 .preview-details span {
-  color: #64748b;
+  color: var(--text-muted);
   margin-right: 0.5rem;
 }
 
@@ -406,29 +425,29 @@
 }
 
 .preview-actions .btn-primary {
-  background: linear-gradient(135deg, #38bdf8, #818cf8);
+  background: var(--gradient-accent);
   color: white;
 }
 
 .preview-actions .btn-secondary {
-  background: rgba(148, 163, 184, 0.2);
-  color: #94a3b8;
+  background: var(--input-border);
+  color: var(--text-secondary);
 }
 
 .preview-actions .btn-outline {
   background: transparent;
-  color: #94a3b8;
-  border: 1px solid rgba(148, 163, 184, 0.3);
+  color: var(--text-secondary);
+  border: 1px solid var(--input-border);
 }
 
 .no-candidates {
-  color: #64748b;
+  color: var(--text-muted);
   font-size: 0.9rem;
 }
 
 .preview-actions .btn.shortlisted {
   background: rgba(34, 197, 94, 0.2);
-  color: #4ade80;
+  color: var(--success-color);
 }
 
 .preview-actions .btn.invited {
@@ -451,6 +470,7 @@
   width: 100%;
   max-width: 520px;
   max-height: 90vh;
+  margin: 1rem;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -461,20 +481,20 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+  border-bottom: 1px solid var(--border);
 }
 
 .recruiter-modal-header h3 {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #f8fafc;
+  color: var(--text-primary);
   margin: 0;
 }
 
 .modal-close {
   background: none;
   border: none;
-  color: #94a3b8;
+  color: var(--text-secondary);
   font-size: 1.5rem;
   cursor: pointer;
   padding: 0 0.25rem;
@@ -482,7 +502,7 @@
 }
 
 .modal-close:hover {
-  color: #f8fafc;
+  color: var(--text-primary);
 }
 
 .recruiter-modal-body {
@@ -497,32 +517,32 @@
 .profile-section h4 {
   font-size: 0.85rem;
   font-weight: 600;
-  color: #64748b;
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin: 0 0 0.5rem 0;
 }
 
 .profile-section p {
-  color: #cbd5e1;
+  color: var(--text-secondary);
   font-size: 0.95rem;
   margin: 0.25rem 0;
 }
 
 .profile-section a {
-  color: #38bdf8;
+  color: var(--accent);
   font-size: 0.95rem;
 }
 
 .match-value {
   font-size: 1.25rem !important;
   font-weight: 700;
-  color: #4ade80 !important;
+  color: var(--success-color) !important;
 }
 
 .invite-candidate-name {
   font-weight: 600;
-  color: #f8fafc;
+  color: var(--text-primary);
   margin-bottom: 1rem !important;
 }
 
@@ -533,17 +553,17 @@
 .recruiter-modal .form-group label {
   display: block;
   font-size: 0.9rem;
-  color: #94a3b8;
+  color: var(--text-secondary);
   margin-bottom: 0.5rem;
 }
 
 .recruiter-modal .form-group input {
   width: 100%;
   padding: 0.6rem 1rem;
-  background: rgba(30, 41, 59, 0.8);
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
   border-radius: 0.5rem;
-  color: #f8fafc;
+  color: var(--text-primary);
 }
 
 .invite-submit-btn {

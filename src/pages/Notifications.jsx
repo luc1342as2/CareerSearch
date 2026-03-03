@@ -1,8 +1,19 @@
+import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import './Notifications.css';
 
 export default function Notifications() {
   const { notifications, markNotificationRead } = useApp();
+  const navigate = useNavigate();
+
+  const handleNotificationClick = (notification) => {
+    markNotificationRead(notification.id);
+    if (notification.link) {
+      navigate(notification.link, {
+        state: notification.conversationId ? { openConversation: notification.conversationId } : undefined,
+      });
+    }
+  };
 
   const getNotificationIcon = (type) => {
     switch (type) {
@@ -22,7 +33,7 @@ export default function Notifications() {
             <div
               key={notification.id}
               className={`notification-card card ${!notification.read ? 'unread' : ''}`}
-              onClick={() => markNotificationRead(notification.id)}
+              onClick={() => handleNotificationClick(notification)}
             >
               <span className="notification-icon">{getNotificationIcon(notification.type)}</span>
               <div className="notification-content">

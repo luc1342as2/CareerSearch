@@ -1,22 +1,81 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+@import "tailwindcss";
 
 html {
   scroll-behavior: smooth;
   overflow-y: auto;
 }
 
+:root,
+[data-theme="dark"] {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-card: rgba(30, 41, 59, 0.6);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --accent: #38bdf8;
+  --accent-hover: #7dd3fc;
+  --border: rgba(148, 163, 184, 0.1);
+  --input-bg: rgba(30, 41, 59, 0.8);
+  --input-border: rgba(148, 163, 184, 0.2);
+  --input-color: #f8fafc;
+  --hover-bg: rgba(148, 163, 184, 0.06);
+  --accent-bg: rgba(56, 189, 248, 0.15);
+  --success-bg: rgba(34, 197, 94, 0.2);
+  --success-color: #4ade80;
+  --warning-bg: rgba(250, 204, 21, 0.2);
+  --warning-color: #facc15;
+  --error-bg: rgba(248, 113, 113, 0.2);
+  --error-color: #f87171;
+  --gradient-accent: linear-gradient(135deg, #38bdf8, #818cf8);
+  --shadow: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="light"] {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-card: rgba(255, 255, 255, 0.95);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --accent: #0284c7;
+  --accent-hover: #0369a1;
+  --border: rgba(148, 163, 184, 0.3);
+  --input-bg: #ffffff;
+  --input-border: #cbd5e1;
+  --input-color: #0f172a;
+  --hover-bg: rgba(148, 163, 184, 0.08);
+  --accent-bg: rgba(2, 132, 199, 0.12);
+  --success-bg: rgba(34, 197, 94, 0.15);
+  --success-color: #16a34a;
+  --warning-bg: rgba(250, 204, 21, 0.2);
+  --warning-color: #ca8a04;
+  --error-bg: rgba(248, 113, 113, 0.15);
+  --error-color: #dc2626;
+  --gradient-accent: linear-gradient(135deg, #0284c7, #0369a1);
+  --shadow: rgba(0, 0, 0, 0.08);
+}
+
 :root {
   font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color-scheme: dark;
-  color: #f8fafc;
-  background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+  color: var(--text-primary);
+  background: var(--bg-primary);
   min-height: 100vh;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+[data-theme="dark"] {
+  background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+}
+
+[data-theme="light"] {
+  background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
 }
 
 * {
@@ -36,15 +95,95 @@ body {
 
 a {
   font-weight: 500;
-  color: #38bdf8;
+  color: var(--accent);
   text-decoration: inherit;
 }
 
 a:hover {
-  color: #7dd3fc;
+  color: var(--accent-hover);
 }
 
 button {
   font-family: inherit;
   cursor: pointer;
+}
+
+/* Center titles and buttons across the app */
+.app-content main h1,
+.app-content main h2,
+.app-content main h3 {
+  text-align: center;
+}
+
+.app-content .card h2,
+.app-content .card h3,
+.app-content .account-section h3,
+.app-content .section-desc {
+  text-align: center;
+}
+
+.app-content .platform-pillars h2,
+.app-content .pricing-plans h2,
+.app-content .additional-revenue h2 {
+  text-align: center;
+}
+
+.app-content .filters-card h2,
+.app-content .jobs-main h1,
+.app-content .posted-jobs-section h2,
+.app-content .candidates-list h2,
+.app-content .filters-panel h3,
+.app-content .candidate-preview h3 {
+  text-align: center;
+}
+
+/* Center standalone buttons */
+.app-content .login-btn,
+.app-content .save-btn,
+.app-content .upgrade-btn,
+.app-content .delete-btn,
+.app-content .clear-filters-btn,
+.app-content .invite-submit-btn,
+.app-content .cv-upload-btn,
+.app-content .cv-url-btn,
+.app-content .ai-insights-btn {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.app-content .update-cv-btn {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Center button groups */
+.app-content .job-actions,
+.app-content .job-card-actions,
+.app-content .preview-actions,
+.app-content .job-details-actions {
+  justify-content: center;
+}
+
+.app-content .recommended-jobs-card .card-header {
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.app-content .recommended-jobs-card h2 {
+  text-align: center;
+}
+
+.app-content .plan-card h3,
+.app-content .plan-desc {
+  text-align: center;
+}
+
+/* Keep job/candidate item titles left-aligned for readability */
+.app-content .job-item h3,
+.app-content .job-card h3,
+.app-content .job-info h3 {
+  text-align: left;
 }

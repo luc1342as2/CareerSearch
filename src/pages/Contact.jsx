@@ -19,6 +19,11 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const subject = encodeURIComponent(`[${formData.category}] ${formData.subject}`);
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\nCategory: ${formData.category}\n\nMessage:\n${formData.message}`
+    );
+    window.location.href = `mailto:ghiglilucas@gmail.com?subject=${subject}&body=${body}`;
     setSubmitted(true);
   };
 
@@ -32,45 +37,6 @@ export default function Contact() {
         </header>
 
         <div className="contact-layout">
-          <div className="contact-info card">
-            <h3>Get in Touch</h3>
-            <div className="contact-detail">
-              <span className="contact-icon">📧</span>
-              <div>
-                <strong>Email</strong>
-                <p>support@careersearch.com</p>
-              </div>
-            </div>
-            <div className="contact-detail">
-              <span className="contact-icon">📧</span>
-              <div>
-                <strong>Recruiters</strong>
-                <p>recruiters@careersearch.com</p>
-              </div>
-            </div>
-            <div className="contact-detail">
-              <span className="contact-icon">📧</span>
-              <div>
-                <strong>Privacy & Legal</strong>
-                <p>privacy@careersearch.com</p>
-              </div>
-            </div>
-            <div className="contact-detail">
-              <span className="contact-icon">📍</span>
-              <div>
-                <strong>Office</strong>
-                <p>123 Career Street, San Francisco, CA 94102</p>
-              </div>
-            </div>
-            <div className="contact-detail">
-              <span className="contact-icon">🕐</span>
-              <div>
-                <strong>Support Hours</strong>
-                <p>Mon–Fri: 9am–6pm PST</p>
-              </div>
-            </div>
-          </div>
-
           <div className="contact-form-wrapper card">
             <h3>Send a Message</h3>
             {submitted ? (
@@ -139,6 +105,45 @@ export default function Contact() {
                 <button type="submit" className="contact-submit-btn">Send Message</button>
               </form>
             )}
+          </div>
+
+          <div className="contact-info card">
+            <h3>Get in Touch</h3>
+            <div className="contact-detail">
+              <span className="contact-icon">📧</span>
+              <div>
+                <strong>Email</strong>
+                <p>support@careersearch.com</p>
+              </div>
+            </div>
+            <div className="contact-detail">
+              <span className="contact-icon">📧</span>
+              <div>
+                <strong>Recruiters</strong>
+                <p>recruiters@careersearch.com</p>
+              </div>
+            </div>
+            <div className="contact-detail">
+              <span className="contact-icon">📧</span>
+              <div>
+                <strong>Privacy & Legal</strong>
+                <p>privacy@careersearch.com</p>
+              </div>
+            </div>
+            <div className="contact-detail">
+              <span className="contact-icon">📍</span>
+              <div>
+                <strong>Office</strong>
+                <p>123 Career Street, San Francisco, CA 94102</p>
+              </div>
+            </div>
+            <div className="contact-detail">
+              <span className="contact-icon">🕐</span>
+              <div>
+                <strong>Support Hours</strong>
+                <p>Mon–Fri: 9am–6pm PST</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

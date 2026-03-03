@@ -1,8 +1,10 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { mockUser, mockRecruiter, mockJobs, mockNotifications, mockProfileViewers } from '../data/mockData';
 import * as sub from '../services/subscriptionService';
+import { computeProfileStrength, computeSkillsCompatibility } from '../services/skillsService';
 
 const AUTH_STORAGE_KEY = 'careersearch_auth';
+const NEWSLETTER_STORAGE_KEY = 'careersearch_newsletter';
 
 const getStoredAuth = () => {
   try {
@@ -141,8 +143,16 @@ export function AppProvider({ children }) {
   };
 
   const updateUser = (updates) => {
-    setUser((prev) => ({ ...prev, ...updates }));
+    setUser((prev) => {
+      const next = { ...prev, ...updates };
+      if (updates.cvUploaded || updates.skills || updates.experience) {
+        next.profileStrength = computeProfileStrength(next);
+      }
+      return next;
+    });
   };
+
+  const getSkillsCompatibility = () => computeSkillsCompatibility(userWithSub, jobs);
 
   const saveJob = (jobId) => {
     if (!savedJobs.includes(jobId)) {
@@ -213,6 +223,29 @@ export function AppProvider({ children }) {
   const canAccessCandidate = (index) => sub.canAccessCandidate(userWithSub, index, 999);
   const useAIFiltering = (filters) => sub.useAIFiltering(userWithSub, filters);
 
+  const subscribeToNewsletter = (email) => {
+    try {
+      const stored = JSON.parse(localStorage.getItem(NEWSLETTER_STORAGE_KEY) || '[]');
+      const normalized = email.trim().toLowerCase();
+      if (!stored.includes(normalized)) {
+        stored.push(normalized);
+        localStorage.setItem(NEWSLETTER_STORAGE_KEY, JSON.stringify(stored));
+      }
+      return { success: true };
+    } catch (e) {
+      return { success: false };
+    }
+  };
+
+  const isNewsletterSubscribed = (email) => {
+    try {
+      const stored = JSON.parse(localStorage.getItem(NEWSLETTER_STORAGE_KEY) || '[]');
+      return stored.includes((email || '').trim().toLowerCase());
+    } catch (e) {
+      return false;
+    }
+  };
+
   const value = {
     currentUser,
     user: userWithSub,
@@ -257,6 +290,9 @@ export function AppProvider({ children }) {
     getUniversityPartnership,
     canAccessCandidate,
     useAIFiltering,
+    getSkillsCompatibility,
+    subscribeToNewsletter,
+    isNewsletterSubscribed,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

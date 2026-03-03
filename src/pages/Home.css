@@ -1,6 +1,12 @@
 .home-page {
   flex: 1;
-  padding: 1.5rem;
+  padding: 1rem 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .home-page {
+    padding: 1rem;
+  }
 }
 
 .home-container {

@@ -1,7 +1,14 @@
 import { useState, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '../context/AppContext';
 import './UpdateCvButton.css';
+
+function extractSkillsFromCV(file, user) {
+  if (user?.skills?.length) return {};
+  const commonSkills = ['JavaScript', 'React', 'TypeScript', 'Node.js', 'Python', 'SQL', 'HTML', 'CSS'];
+  return { skills: commonSkills };
+}
 
 export default function UpdateCvButton() {
   const { user, updateUser, isAuthenticated } = useApp();
@@ -29,10 +36,11 @@ export default function UpdateCvButton() {
     }
     setUploading(true);
     setTimeout(() => {
-      updateUser({ cvUploaded: true });
+      const extractedSkills = extractSkillsFromCV(file, user);
+      updateUser({ cvUploaded: true, ...extractedSkills });
       setUploading(false);
       setShowModal(false);
-      showToast('CV uploaded successfully!');
+      showToast('CV uploaded! Skills compatibility updated.');
       e.target.value = '';
     }, 800);
   };
@@ -82,7 +90,13 @@ export default function UpdateCvButton() {
 
   return (
     <>
-      <div className="update-cv-card card">
+      <motion.div
+        className="update-cv-card card"
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        whileHover={{ y: -2 }}
+      >
         <div className="update-cv-content">
           <div className="update-cv-icon">📄</div>
           <div>
@@ -96,17 +110,33 @@ export default function UpdateCvButton() {
             </p>
           </div>
         </div>
-        <button
-        className="update-cv-btn"
-        onClick={() => !isAuthenticated ? navigate('/login', { state: { from: location } }) : handleButtonClick()}
-      >
-        {!isAuthenticated ? 'Login to Update CV' : (user.cvUploaded ? 'Update CV / Video CV' : 'Upload CV')}
-      </button>
-      </div>
+        <motion.button
+          className="update-cv-btn"
+          onClick={() => !isAuthenticated ? navigate('/login', { state: { from: location } }) : handleButtonClick()}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          {!isAuthenticated ? 'Login to Update CV' : (user.cvUploaded ? 'Update CV / Video CV' : 'Upload CV')}
+        </motion.button>
+      </motion.div>
 
-      {showModal && (
-        <div className="cv-modal-overlay" onClick={() => !uploading && setShowModal(false)}>
-          <div className="cv-modal card" onClick={(e) => e.stopPropagation()}>
+      <AnimatePresence>
+        {showModal && (
+          <motion.div
+            className="cv-modal-overlay"
+            onClick={() => !uploading && setShowModal(false)}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="cv-modal card"
+              onClick={(e) => e.stopPropagation()}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+            >
             <div className="cv-modal-header">
               <h3>Upload Documents</h3>
               <button className="cv-modal-close" onClick={() => !uploading && setShowModal(false)} aria-label="Close">
@@ -184,9 +214,10 @@ export default function UpdateCvButton() {
                 </div>
               )}
             </div>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        </motion.div>
+        )}
+      </AnimatePresence>
 
       {toast && (
         <div className={`cv-toast cv-toast--${toast.type}`}>

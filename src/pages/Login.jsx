@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { useApp } from '../context/AppContext';
 import './Login.css';
 
@@ -33,7 +34,12 @@ export default function Login() {
 
   return (
     <main className="login-page">
-      <div className="login-container card">
+      <motion.div
+        className="login-container card"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+      >
         <div className="login-header">
           <h1>Welcome to CareerSearch</h1>
           <p>Sign in to access your account</p>
@@ -97,7 +103,7 @@ export default function Login() {
           <p><strong>Candidate:</strong> alex.johnson@email.com / candidate123</p>
           <p><strong>Recruiter:</strong> recruiter@careersearch.com / recruiter123</p>
         </div>
-      </div>
+      </motion.div>
     </main>
   );
 }

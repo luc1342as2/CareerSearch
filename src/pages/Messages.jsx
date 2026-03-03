@@ -1,9 +1,18 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { mockConversations, mockChatMessages } from '../data/mockData';
 import './Messages.css';
 
 export default function Messages() {
-  const [selectedChat, setSelectedChat] = useState(null);
+  const location = useLocation();
+  const openConversation = location.state?.openConversation;
+  const [selectedChat, setSelectedChat] = useState(openConversation || null);
+
+  useEffect(() => {
+    if (openConversation) {
+      setSelectedChat(openConversation);
+    }
+  }, [openConversation]);
   const [messageInput, setMessageInput] = useState('');
   const [messages, setMessages] = useState(mockChatMessages);
   const [attachedFiles, setAttachedFiles] = useState([]);

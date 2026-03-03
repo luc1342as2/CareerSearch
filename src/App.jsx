@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
+import { ThemeProvider } from './context/ThemeContext';
 import Navbar from './components/Navbar';
+import ScrollToTop from './components/ScrollToTop';
 import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
 import RequireLogin from './components/RequireLogin';
@@ -17,6 +19,7 @@ import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import Help from './pages/Help';
 import Contact from './pages/Contact';
+import Blog from './pages/Blog';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Placeholder from './pages/Placeholder';
@@ -24,8 +27,10 @@ import './App.css';
 
 function App() {
   return (
-    <AppProvider>
-      <BrowserRouter basename="/CareerSearch">
+    <ThemeProvider>
+      <AppProvider>
+        <BrowserRouter basename="/CareerSearch">
+        <ScrollToTop />
         <div className="app">
           <Navbar />
           <div className="app-content">
@@ -45,6 +50,8 @@ function App() {
               <Route path="/terms" element={<Terms />} />
               <Route path="/help" element={<Help />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:id" element={<Blog />} />
               <Route path="/:page" element={<Placeholder />} />
             </Routes>
           </div>
@@ -52,6 +59,7 @@ function App() {
         </div>
       </BrowserRouter>
     </AppProvider>
+    </ThemeProvider>
   );
 }
 

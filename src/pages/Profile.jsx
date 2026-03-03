@@ -19,9 +19,9 @@ export default function Profile() {
       <div className="profile-container">
         <div className="profile-header card">
           <div className="profile-header-top">
-            <div className="profile-completion">
+            <div className="profile-completion profile-completion-wrapper">
               <div className="completion-label">
-                <span>Profile completion</span>
+                <span>Profile completeness</span>
                 <strong>{user.profileStrength}%</strong>
               </div>
               <div className="progress-bar">

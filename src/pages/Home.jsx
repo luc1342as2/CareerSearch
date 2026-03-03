@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import RecommendedJobsCard from '../components/RecommendedJobsCard';
 import NotificationsCard from '../components/NotificationsCard';
 import SkillsCompatibilityGraph from '../components/SkillsCompatibilityGraph';
@@ -7,7 +8,12 @@ import './Home.css';
 
 export default function Home() {
   return (
-    <main className="home-page">
+    <motion.main
+      className="home-page"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+    >
       <div className="home-container">
         <TrustBadges variant="home" />
         <div className="home-layout">
@@ -21,6 +27,6 @@ export default function Home() {
         </aside>
       </div>
       </div>
-    </main>
+    </motion.main>
   );
 }
