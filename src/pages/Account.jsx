@@ -1,9 +1,18 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import './Account.css';
 
 export default function Account() {
-  const { user } = useApp();
+  const {
+    user,
+    isCandidatePremium,
+    isRecruiterSubscribed,
+    subscribeCandidatePremium,
+    unsubscribeCandidatePremium,
+    subscribeRecruiter,
+    unsubscribeRecruiter,
+  } = useApp();
   const [activeSection, setActiveSection] = useState('personal');
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deleteConfirmText, setDeleteConfirmText] = useState('');
@@ -165,26 +174,106 @@ export default function Account() {
             <section className="account-section card">
               <h3>Subscription Plan</h3>
               <p className="section-desc">Manage your subscription</p>
-              <div className="subscription-card">
-                <div className="plan-badge">Free</div>
-                <h4>CareerSearch Free</h4>
-                <p>Basic job matching and profile visibility</p>
-                <ul>
-                  <li>Up to 5 job applications per month</li>
-                  <li>Basic profile visibility</li>
-                  <li>Email notifications</li>
-                </ul>
-                <Link to="/pricing" className="upgrade-btn">Upgrade to Premium</Link>
-              </div>
-              <div className="plan-comparison">
-                <h4>Premium — For Candidates</h4>
-                <ul>
-                  <li>Advanced AI insights</li>
-                  <li>Unlimited video CV</li>
-                  <li>See who viewed your profile</li>
-                  <li>Profile boost</li>
-                </ul>
-              </div>
+              {user?.role === 'candidate' ? (
+                <>
+                  <div className={`subscription-card ${isCandidatePremium ? 'premium' : ''}`}>
+                    <div className={`plan-badge ${isCandidatePremium ? 'premium' : ''}`}>
+                      {isCandidatePremium ? 'Premium' : 'Free'}
+                    </div>
+                    <h4>{isCandidatePremium ? 'CareerSearch Premium' : 'CareerSearch Free'}</h4>
+                    <p>
+                      {isCandidatePremium
+                        ? 'Advanced AI insights, unlimited video CV, profile viewers, profile boost'
+                        : 'Basic job matching and profile visibility'}
+                    </p>
+                    <ul>
+                      {isCandidatePremium ? (
+                        <>
+                          <li>Advanced AI insights</li>
+                          <li>Unlimited video CV</li>
+                          <li>See who viewed your profile</li>
+                          <li>Profile boost</li>
+                        </>
+                      ) : (
+                        <>
+                          <li>Up to 5 job applications per month</li>
+                          <li>Basic profile visibility</li>
+                          <li>Email notifications</li>
+                        </>
+                      )}
+                    </ul>
+                    {isCandidatePremium ? (
+                      <button className="upgrade-btn secondary" onClick={() => unsubscribeCandidatePremium()}>
+                        Cancel Premium
+                      </button>
+                    ) : (
+                      <button className="upgrade-btn" onClick={() => subscribeCandidatePremium()}>
+                        Upgrade to Premium
+                      </button>
+                    )}
+                  </div>
+                  {!isCandidatePremium && (
+                    <div className="plan-comparison">
+                      <h4>Premium — For Candidates</h4>
+                      <ul>
+                        <li>Advanced AI insights</li>
+                        <li>Unlimited video CV</li>
+                        <li>See who viewed your profile</li>
+                        <li>Profile boost</li>
+                      </ul>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <>
+                  <div className={`subscription-card ${isRecruiterSubscribed ? 'premium' : ''}`}>
+                    <div className={`plan-badge ${isRecruiterSubscribed ? 'premium' : ''}`}>
+                      {isRecruiterSubscribed ? 'Subscribed' : 'Free'}
+                    </div>
+                    <h4>{isRecruiterSubscribed ? 'Recruiter Monthly' : 'Recruiter Free'}</h4>
+                    <p>
+                      {isRecruiterSubscribed
+                        ? 'AI filtering, unlimited candidate access, featured job posts'
+                        : 'Limited candidate access'}
+                    </p>
+                    <ul>
+                      {isRecruiterSubscribed ? (
+                        <>
+                          <li>AI filtering tools</li>
+                          <li>Unlimited candidate access</li>
+                          <li>Featured job posts</li>
+                          <li>Priority support</li>
+                        </>
+                      ) : (
+                        <>
+                          <li>Up to 10 candidate views per job</li>
+                          <li>Basic job posting</li>
+                        </>
+                      )}
+                    </ul>
+                    {isRecruiterSubscribed ? (
+                      <button className="upgrade-btn secondary" onClick={() => unsubscribeRecruiter()}>
+                        Cancel Subscription
+                      </button>
+                    ) : (
+                      <button className="upgrade-btn" onClick={() => subscribeRecruiter()}>
+                        Subscribe — Recruiter Monthly
+                      </button>
+                    )}
+                  </div>
+                  {!isRecruiterSubscribed && (
+                    <div className="plan-comparison">
+                      <h4>Recruiter Monthly — Features</h4>
+                      <ul>
+                        <li>AI filtering tools</li>
+                        <li>Unlimited candidate access</li>
+                        <li>Featured job posts</li>
+                        <li>Priority support</li>
+                      </ul>
+                    </div>
+                  )}
+                </>
+              )}
             </section>
           )}
 

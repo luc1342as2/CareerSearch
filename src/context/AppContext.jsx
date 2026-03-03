@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { mockUser, mockRecruiter, mockJobs, mockNotifications } from '../data/mockData';
+import { mockUser, mockRecruiter, mockJobs, mockNotifications, mockProfileViewers } from '../data/mockData';
+import * as sub from '../services/subscriptionService';
 
 const AUTH_STORAGE_KEY = 'careersearch_auth';
 
@@ -35,8 +36,21 @@ export function AppProvider({ children }) {
   const [applications, setApplications] = useState([]);
   const [shortlistedCandidates, setShortlistedCandidates] = useState([]);
   const [invitedCandidates, setInvitedCandidates] = useState([]);
+  const [profileViewers, setProfileViewers] = useState(mockProfileViewers);
 
   const isAuthenticated = !!currentUser;
+
+  // Subscription status (merged with user)
+  const getSubscriptionStatus = (u) => {
+    if (!u) return null;
+    const data = JSON.parse(localStorage.getItem(sub.SUBSCRIPTION_STORAGE_KEY) || '{}');
+    if (u.role === 'candidate' && data.candidates?.[u.id]) return data.candidates[u.id];
+    if (u.role === 'recruiter' && data.recruiters?.[u.id]) return data.recruiters[u.id];
+    return null;
+  };
+  const userWithSub = user ? { ...user, subscription: getSubscriptionStatus(user) } : user;
+  const isCandidatePremium = sub.isCandidatePremium(userWithSub);
+  const isRecruiterSubscribed = sub.isRecruiterSubscribed(userWithSub);
 
   useEffect(() => {
     if (currentUser) {
@@ -152,13 +166,62 @@ export function AppProvider({ children }) {
     );
   };
 
+  // --- Monetization / Subscription ---
+  const subscribeCandidatePremium = () => {
+    if (!currentUser?.id) return { success: false };
+    sub.subscribeCandidatePremium(currentUser.id);
+    setCurrentUser((prev) => prev && { ...prev, subscription: { plan: 'premium', status: 'active' } });
+    return { success: true };
+  };
+
+  const unsubscribeCandidatePremium = () => {
+    if (!currentUser?.id) return { success: false };
+    sub.unsubscribeCandidatePremium(currentUser.id);
+    setCurrentUser((prev) => prev && { ...prev, subscription: null });
+    return { success: true };
+  };
+
+  const subscribeRecruiter = () => {
+    if (!currentUser?.id) return { success: false };
+    sub.subscribeRecruiter(currentUser.id);
+    setCurrentUser((prev) => prev && { ...prev, subscription: { plan: 'recruiter_monthly', status: 'active' } });
+    return { success: true };
+  };
+
+  const unsubscribeRecruiter = () => {
+    if (!currentUser?.id) return { success: false };
+    sub.unsubscribeRecruiter(currentUser.id);
+    setCurrentUser((prev) => prev && { ...prev, subscription: null });
+    return { success: true };
+  };
+
+  const getAdvancedAIInsights = (jobId) => sub.getAdvancedAIInsights(userWithSub, jobId);
+  const canUploadVideoCV = () => sub.canUploadVideoCV(userWithSub, user?.videoCvUploaded ? 1 : 0);
+  const getProfileViewersList = () => {
+    const fromStorage = sub.getProfileViewers(currentUser?.id);
+    if (fromStorage?.length) return fromStorage;
+    return profileViewers.filter((v) => v.profileId === currentUser?.id);
+  };
+  const canSeeProfileViewers = () => sub.canSeeProfileViewers(userWithSub);
+  const boostProfile = () => sub.boostProfile(userWithSub);
+  const isProfileBoosted = () => sub.isProfileBoosted(currentUser?.id);
+  const createFeaturedJobPost = (jobData) => sub.createFeaturedJobPost(userWithSub, jobData);
+  const createPaidJobPosting = (jobData, amount) => sub.createPaidJobPosting(currentUser?.id, jobData, amount);
+  const createSponsoredListing = (jobId, days, cost) => sub.createSponsoredListing(jobId, days, cost);
+  const getCorporateHRPackage = (companyId, tier) => sub.getCorporateHRPackage(companyId, tier);
+  const getUniversityPartnership = (uniId) => sub.getUniversityPartnership(uniId);
+  const canAccessCandidate = (index) => sub.canAccessCandidate(userWithSub, index, 999);
+  const useAIFiltering = (filters) => sub.useAIFiltering(userWithSub, filters);
+
   const value = {
     currentUser,
+    user: userWithSub,
     isAuthenticated,
+    isCandidatePremium,
+    isRecruiterSubscribed,
     login,
     logout,
     signUp,
-    user,
     setUser,
     updateUser,
     jobs,
@@ -176,6 +239,24 @@ export function AppProvider({ children }) {
     unshortlistCandidate,
     invitedCandidates,
     inviteCandidateToInterview,
+    profileViewers,
+    subscribeCandidatePremium,
+    unsubscribeCandidatePremium,
+    subscribeRecruiter,
+    unsubscribeRecruiter,
+    getAdvancedAIInsights,
+    canUploadVideoCV,
+    getProfileViewersList,
+    canSeeProfileViewers,
+    boostProfile,
+    isProfileBoosted,
+    createFeaturedJobPost,
+    createPaidJobPosting,
+    createSponsoredListing,
+    getCorporateHRPackage,
+    getUniversityPartnership,
+    canAccessCandidate,
+    useAIFiltering,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

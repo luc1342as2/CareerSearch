@@ -58,10 +58,18 @@ export const mockUser = {
   github: 'https://github.com/alexjohnson',
 };
 
+// Subscription & monetization
+export const mockProfileViewers = [
+  { profileId: '1', viewerName: 'Sarah Chen', company: 'TechFlow Inc', viewedAt: '2025-03-02T14:30:00Z' },
+  { profileId: '1', viewerName: 'Mike Johnson', company: 'InnovateLabs', viewedAt: '2025-03-01T10:15:00Z' },
+];
+
 export const mockJobs = [
   {
     id: '1',
     title: 'Senior React Developer',
+    featured: true,
+    sponsored: false,
     company: 'TechFlow Inc',
     location: 'Remote',
     salaryRange: { min: 130000, max: 170000 },
@@ -80,6 +88,8 @@ export const mockJobs = [
   {
     id: '2',
     title: 'Full Stack Engineer',
+    featured: false,
+    sponsored: true,
     company: 'InnovateLabs',
     location: 'San Francisco, CA',
     salaryRange: { min: 140000, max: 190000 },
@@ -98,6 +108,8 @@ export const mockJobs = [
   {
     id: '3',
     title: 'Frontend Developer',
+    featured: false,
+    sponsored: false,
     company: 'DesignFirst',
     location: 'New York, NY',
     salaryRange: { min: 110000, max: 150000 },
@@ -116,6 +128,8 @@ export const mockJobs = [
   {
     id: '4',
     title: 'Software Engineer - Remote',
+    featured: true,
+    sponsored: false,
     company: 'GlobalTech',
     location: 'Remote',
     salaryRange: { min: 125000, max: 165000 },

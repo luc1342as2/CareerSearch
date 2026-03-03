@@ -56,6 +56,64 @@
   color: #facc15;
 }
 
+.job-badge {
+  margin-left: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.job-badge.featured {
+  background: rgba(250, 204, 21, 0.2);
+  color: #facc15;
+}
+
+.job-badge.sponsored {
+  background: rgba(139, 92, 246, 0.2);
+  color: #a78bfa;
+}
+
+.ai-insights-btn {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.ai-insights-btn:hover {
+  background: rgba(56, 189, 248, 0.25);
+}
+
+.ai-insights-panel {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(30, 41, 59, 0.5);
+  border-radius: 0.5rem;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.ai-insights-panel h4 {
+  color: #38bdf8;
+  margin: 0 0 0.75rem 0;
+  font-size: 1rem;
+}
+
+.ai-insights-panel ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: #cbd5e1;
+  font-size: 0.9rem;
+}
+
+.ai-insights-panel li {
+  margin-bottom: 0.35rem;
+}
+
 .match-badge.low {
   background: rgba(248, 113, 113, 0.2);
   color: #f87171;

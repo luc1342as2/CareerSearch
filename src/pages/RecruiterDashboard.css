@@ -12,6 +12,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
   margin-bottom: 1.5rem;
 }
 
@@ -34,6 +36,109 @@
 
 .post-job-btn:hover {
   opacity: 0.9;
+}
+
+.subscriber-badge {
+  padding: 0.35rem 0.75rem;
+  background: rgba(74, 222, 128, 0.2);
+  color: #4ade80;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-right: auto;
+  margin-left: 1rem;
+}
+
+.ai-badge {
+  padding: 0.2rem 0.5rem;
+  background: rgba(56, 189, 248, 0.2);
+  color: #38bdf8;
+  border-radius: 0.25rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  margin-left: 0.5rem;
+}
+
+.candidate-row {
+  position: relative;
+}
+
+.candidate-row.locked {
+  opacity: 0.85;
+}
+
+.candidate-row.locked .candidate-row-content {
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+.lock-overlay {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.75rem;
+  color: #94a3b8;
+  background: rgba(30, 41, 59, 0.95);
+  padding: 0.35rem 0.6rem;
+  border-radius: 0.25rem;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.post-job-modal .post-job-desc {
+  color: #94a3b8;
+  margin-bottom: 1rem;
+}
+
+.post-job-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.post-option {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(30, 41, 59, 0.5);
+  border: 2px solid rgba(148, 163, 184, 0.2);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  text-align: left;
+  color: #f8fafc;
+  transition: all 0.2s;
+}
+
+.post-option:hover {
+  border-color: rgba(56, 189, 248, 0.5);
+  background: rgba(56, 189, 248, 0.08);
+}
+
+.post-option .option-icon {
+  font-size: 1.5rem;
+}
+
+.post-option strong {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.post-option span:last-child {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.post-option.featured {
+  border-color: rgba(250, 204, 21, 0.4);
+}
+
+.post-option.paid {
+  border-color: rgba(74, 222, 128, 0.3);
+}
+
+.post-option.sponsored {
+  border-color: rgba(139, 92, 246, 0.3);
 }
 
 .analytics-overview {

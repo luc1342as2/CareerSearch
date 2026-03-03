@@ -3,7 +3,15 @@ import { useApp } from '../context/AppContext';
 import './Profile.css';
 
 export default function Profile() {
-  const { user } = useApp();
+  const {
+    user,
+    isCandidatePremium,
+    canSeeProfileViewers,
+    getProfileViewersList,
+    boostProfile,
+    isProfileBoosted,
+    canUploadVideoCV,
+  } = useApp();
   const [isEditing, setIsEditing] = useState(false);
 
   return (
@@ -39,6 +47,16 @@ export default function Profile() {
                   <li key={i}>{suggestion}</li>
                 ))}
               </ul>
+            </div>
+          )}
+          {user?.role === 'candidate' && (
+            <div className="profile-premium-actions">
+              {isProfileBoosted() && <span className="boost-badge">Profile boosted</span>}
+              {isCandidatePremium && !isProfileBoosted() && (
+                <button className="boost-btn" onClick={() => boostProfile()}>
+                  Boost Profile
+                </button>
+              )}
             </div>
           )}
         </div>
@@ -115,17 +133,48 @@ export default function Profile() {
               {user.videoCvUploaded ? (
                 <div className="video-cv-uploaded">
                   <span className="video-icon">✓</span>
-                  <p>Video CV uploaded</p>
+                  <p>Video CV uploaded {!canUploadVideoCV().unlimited && `(1/${canUploadVideoCV().limit})`}</p>
                 </div>
               ) : (
                 <div className="video-cv-placeholder">
                   <span className="video-icon">🎬</span>
                   <p>No video CV yet</p>
-                  <button className="upload-video-btn">Upload Video CV</button>
+                  {canUploadVideoCV().allowed ? (
+                    <button className="upload-video-btn" onClick={() => alert('Video upload would start. Demo.')}>
+                      Upload Video CV
+                    </button>
+                  ) : (
+                    <p className="video-cv-locked">Upgrade to Premium for unlimited video CVs</p>
+                  )}
                 </div>
               )}
             </div>
           </section>
+
+          {user?.role === 'candidate' && (
+            <section className="profile-section card">
+              <h2>Who Viewed Your Profile</h2>
+              {canSeeProfileViewers() ? (
+                <div className="profile-viewers">
+                  {getProfileViewersList().length ? (
+                    <ul>
+                      {getProfileViewersList().map((v, i) => (
+                        <li key={i}>
+                          <strong>{v.viewerName || v.company}</strong>
+                          {v.company && ` — ${v.company}`}
+                          <span className="viewer-time">{new Date(v.viewedAt).toLocaleDateString()}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p>No profile views yet</p>
+                  )}
+                </div>
+              ) : (
+                <p className="profile-viewers-locked">Upgrade to Premium to see who viewed your profile</p>
+              )}
+            </section>
+          )}
 
           <section className="profile-section card">
             <h2>Portfolio Links</h2>

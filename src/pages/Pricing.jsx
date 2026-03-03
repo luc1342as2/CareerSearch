@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useApp } from '../context/AppContext';
 import './Pricing.css';
 
 const platformPillars = [
@@ -12,6 +14,33 @@ const platformPillars = [
 ];
 
 export default function Pricing() {
+  const { getUniversityPartnership, getCorporateHRPackage, createPaidJobPosting, createSponsoredListing } = useApp();
+  const [revenueToast, setRevenueToast] = useState(null);
+
+  const handlePaidPosting = () => {
+    const r = createPaidJobPosting({ title: 'Sample Job' }, 49);
+    setRevenueToast(r.message);
+    setTimeout(() => setRevenueToast(null), 3000);
+  };
+
+  const handleSponsored = () => {
+    const r = createSponsoredListing('job-1', 7, 15);
+    setRevenueToast(r.message);
+    setTimeout(() => setRevenueToast(null), 3000);
+  };
+
+  const handleUniversity = () => {
+    const r = getUniversityPartnership('uni-1');
+    setRevenueToast('University partnership info: ' + JSON.stringify(r.partnership?.type));
+    setTimeout(() => setRevenueToast(null), 3000);
+  };
+
+  const handleCorporate = () => {
+    const r = getCorporateHRPackage('company-1', 'enterprise');
+    setRevenueToast(`Corporate package: $${r.package?.price}/mo`);
+    setTimeout(() => setRevenueToast(null), 3000);
+  };
+
   return (
     <main className="pricing-page">
       <div className="pricing-container">
@@ -66,35 +95,38 @@ export default function Pricing() {
         <section className="additional-revenue card">
           <h2>Additional Revenue Options</h2>
           <div className="revenue-grid">
-            <div className="revenue-item">
+            <button className="revenue-item" onClick={handlePaidPosting}>
               <span className="revenue-icon">📋</span>
               <div>
                 <h4>Paid Job Postings</h4>
-                <p>Boost visibility with featured listings</p>
+                <p>Boost visibility with featured listings — $49/job</p>
               </div>
-            </div>
-            <div className="revenue-item">
+            </button>
+            <button className="revenue-item" onClick={handleUniversity}>
               <span className="revenue-icon">🎓</span>
               <div>
                 <h4>University Partnerships</h4>
                 <p>Connect graduates with employers</p>
               </div>
-            </div>
-            <div className="revenue-item">
+            </button>
+            <button className="revenue-item" onClick={handleSponsored}>
               <span className="revenue-icon">⭐</span>
               <div>
                 <h4>Sponsored Listings</h4>
-                <p>Premium placement in search results</p>
+                <p>Premium placement — $15/day</p>
               </div>
-            </div>
-            <div className="revenue-item">
+            </button>
+            <button className="revenue-item" onClick={handleCorporate}>
               <span className="revenue-icon">🏢</span>
               <div>
                 <h4>Corporate HR Packages</h4>
-                <p>Enterprise solutions for hiring teams</p>
+                <p>Enterprise solutions from $299/mo</p>
               </div>
-            </div>
+            </button>
           </div>
+          {revenueToast && (
+            <div className="revenue-toast">{revenueToast}</div>
+          )}
         </section>
       </div>
     </main>
