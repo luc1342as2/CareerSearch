@@ -1,0 +1,207 @@
+.pricing-page {
+  flex: 1;
+  padding: 2rem 1.5rem;
+}
+
+.pricing-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.pricing-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.pricing-header h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.02em;
+}
+
+.pricing-tagline {
+  font-size: 1.1rem;
+  color: #94a3b8;
+  margin: 0;
+}
+
+/* Platform pillars */
+.platform-pillars {
+  margin-bottom: 2.5rem;
+}
+
+.platform-pillars h2,
+.pricing-plans h2,
+.additional-revenue h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #f8fafc;
+  margin: 0 0 1.25rem 0;
+}
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+.pillar-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  border-radius: 0.5rem;
+}
+
+.pillar-icon {
+  font-size: 1.25rem;
+}
+
+.pillar-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #cbd5e1;
+}
+
+/* Pricing plans */
+.pricing-plans {
+  margin-bottom: 2.5rem;
+}
+
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .plans-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.plan-card {
+  padding: 1.75rem;
+  position: relative;
+}
+
+.plan-badge {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.plan-candidate .plan-badge {
+  background: rgba(56, 189, 248, 0.2);
+  color: #38bdf8;
+}
+
+.plan-recruiter .plan-badge {
+  background: rgba(129, 140, 248, 0.2);
+  color: #a5b4fc;
+}
+
+.plan-card h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0 0 0.5rem 0;
+}
+
+.plan-desc {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  margin: 0 0 1.25rem 0;
+}
+
+.plan-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+}
+
+.plan-features li {
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  color: #cbd5e1;
+  font-size: 0.95rem;
+  position: relative;
+}
+
+.plan-features li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #4ade80;
+  font-weight: 700;
+}
+
+.plan-cta {
+  display: block;
+  text-align: center;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #38bdf8, #818cf8);
+  color: white;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.plan-cta:hover {
+  opacity: 0.9;
+}
+
+.plan-recruiter .plan-cta {
+  background: linear-gradient(135deg, #818cf8, #a78bfa);
+}
+
+/* Additional revenue */
+.revenue-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 600px) {
+  .revenue-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.revenue-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(148, 163, 184, 0.08);
+  border-radius: 0.75rem;
+}
+
+.revenue-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.revenue-item h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f8fafc;
+  margin: 0 0 0.25rem 0;
+}
+
+.revenue-item p {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin: 0;
+}

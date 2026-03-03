@@ -1,0 +1,39 @@
+.require-login-page {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.require-login-card {
+  text-align: center;
+  padding: 2.5rem;
+  max-width: 400px;
+}
+
+.require-login-card h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #f8fafc;
+  margin: 0 0 0.75rem 0;
+}
+
+.require-login-card p {
+  color: #94a3b8;
+  margin: 0 0 1.5rem 0;
+}
+
+.require-login-btn {
+  padding: 0.75rem 2rem;
+  background: linear-gradient(135deg, #38bdf8, #818cf8);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.require-login-btn:hover {
+  opacity: 0.9;
+}

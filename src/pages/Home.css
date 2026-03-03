@@ -1,0 +1,38 @@
+.home-page {
+  flex: 1;
+  padding: 1.5rem;
+}
+
+.home-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.home-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+  .home-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.home-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.home-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.home-sidebar .card {
+  position: sticky;
+  top: 100px;
+}

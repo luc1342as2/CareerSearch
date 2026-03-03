@@ -1,0 +1,103 @@
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useApp } from '../context/AppContext';
+import './Login.css';
+
+export default function Login() {
+  const { login, isAuthenticated } = useApp();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate(location.state?.from?.pathname || '/', { replace: true });
+    }
+  }, [isAuthenticated, navigate, location]);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [role, setRole] = useState('candidate');
+  const [error, setError] = useState('');
+
+  const from = location.state?.from?.pathname || '/';
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setError('');
+    const result = login(email.trim(), password, role);
+    if (result.success) {
+      navigate(from, { replace: true });
+    } else {
+      setError(result.message || 'Invalid email or password');
+    }
+  };
+
+  return (
+    <main className="login-page">
+      <div className="login-container card">
+        <div className="login-header">
+          <h1>Welcome to CareerSearch</h1>
+          <p>Sign in to access your account</p>
+        </div>
+        <form onSubmit={handleSubmit} className="login-form">
+          {error && <div className="login-error">{error}</div>}
+          <div className="form-group">
+            <label>I am a</label>
+            <div className="role-selector">
+              <label className={`role-option ${role === 'candidate' ? 'selected' : ''}`}>
+                <input
+                  type="radio"
+                  name="role"
+                  value="candidate"
+                  checked={role === 'candidate'}
+                  onChange={(e) => setRole(e.target.value)}
+                />
+                <span>Candidate</span>
+              </label>
+              <label className={`role-option ${role === 'recruiter' ? 'selected' : ''}`}>
+                <input
+                  type="radio"
+                  name="role"
+                  value="recruiter"
+                  checked={role === 'recruiter'}
+                  onChange={(e) => setRole(e.target.value)}
+                />
+                <span>Recruiter</span>
+              </label>
+            </div>
+          </div>
+          <div className="form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@example.com"
+              required
+              autoComplete="email"
+            />
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••"
+              required
+              autoComplete="current-password"
+            />
+          </div>
+          <button type="submit" className="login-btn">Sign In</button>
+        </form>
+        <p className="login-signup">
+          Don't have an account? <Link to="/signup">Create account</Link>
+        </p>
+        <div className="login-demo">
+          <p>Demo credentials:</p>
+          <p><strong>Candidate:</strong> alex.johnson@email.com / candidate123</p>
+          <p><strong>Recruiter:</strong> recruiter@careersearch.com / recruiter123</p>
+        </div>
+      </div>
+    </main>
+  );
+}
