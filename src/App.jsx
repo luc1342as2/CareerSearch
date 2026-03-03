@@ -25,7 +25,7 @@ import './App.css';
 function App() {
   return (
     <AppProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/CareerSearch">
         <div className="app">
           <Navbar />
           <div className="app-content">

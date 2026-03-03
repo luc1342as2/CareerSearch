@@ -26,6 +26,18 @@ npm run dev
 
 Open [http://localhost:5173](http://localhost:5173) to view the app.
 
+## Deploy to GitHub Pages
+
+```bash
+npm run deploy
+```
+
+This builds the app, prepares it for GitHub Pages (404.html for SPA routing, .nojekyll), and pushes to the `gh-pages` branch.
+
+**GitHub setup:** In your repo → Settings → Pages → Source: **Deploy from a branch** → Branch: `gh-pages` → Folder: `/ (root)`.
+
+Live site: [https://luc1342as2.github.io/CareerSearch](https://luc1342as2.github.io/CareerSearch)
+
 ## Project Structure
 
 ```
