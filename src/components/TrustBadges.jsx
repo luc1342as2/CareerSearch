@@ -1,34 +1,36 @@
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
 import './TrustBadges.css';
 
-const badges = [
-  { icon: '✓', label: 'GDPR compliance verified', id: '5' },
-  { icon: '🔒', label: 'Encrypted CV & message storage', id: '6' },
-  { icon: '🤖', label: 'AI matching tested with real data', id: '7' },
-  { icon: '📱', label: 'Mobile responsiveness tested', id: '8' },
-  { icon: '🔔', label: 'Push notifications active', id: '9' },
-  { icon: '🌐', label: 'Multi-language localization', id: '10' },
-  { icon: '💳', label: 'Payment system integrated', id: '11' },
-  { icon: '⚡', label: 'Performance load testing completed', id: '12' },
+const badgeKeys = [
+  { icon: '✓', key: 'gdpr', id: '5' },
+  { icon: '🔒', key: 'encrypted', id: '6' },
+  { icon: '🤖', key: 'aiMatching', id: '7' },
+  { icon: '📱', key: 'mobile', id: '8' },
+  { icon: '🔔', key: 'push', id: '9' },
+  { icon: '🌐', key: 'multilang', id: '10' },
+  { icon: '💳', key: 'payment', id: '11' },
+  { icon: '⚡', key: 'performance', id: '12' },
 ];
 
 export default function TrustBadges({ variant = 'footer' }) {
+  const { t } = useLanguage();
   if (variant === 'home') {
     return (
       <section className="trust-badges trust-badges--home">
         <div className="trust-badges-header">
-          <h2 className="trust-badges-title">Platform Standards</h2>
-          <p className="trust-badges-subtitle">Enterprise-grade security and reliability</p>
+          <h2 className="trust-badges-title">{t('trustBadges.platformStandards')}</h2>
+          <p className="trust-badges-subtitle">{t('trustBadges.enterpriseSecurity')}</p>
         </div>
         <div className="trust-badges-grid">
-          {badges.map((badge) => (
-            <div key={badge.label} className="trust-badge trust-badge--home">
+          {badgeKeys.map((badge) => (
+            <div key={badge.key} className="trust-badge trust-badge--home">
               <div className="trust-badge-icon-wrap">
                 <span className="trust-badge-icon">{badge.icon}</span>
               </div>
               <div className="trust-badge-content">
-                <span className="trust-badge-label">{badge.label}</span>
-                <Link to={`/blog/${badge.id}`} className="trust-badge-read-more">Read more</Link>
+                <span className="trust-badge-label">{t(`trustBadges.${badge.key}`)}</span>
+                <Link to={`/blog/${badge.id}`} className="trust-badge-read-more">{t('trustBadges.readMore')}</Link>
               </div>
             </div>
           ))}
@@ -39,10 +41,10 @@ export default function TrustBadges({ variant = 'footer' }) {
 
   return (
     <div className={`trust-badges trust-badges--${variant}`}>
-      {badges.map((badge) => (
-        <div key={badge.label} className="trust-badge">
+      {badgeKeys.map((badge) => (
+        <div key={badge.key} className="trust-badge">
           <span className="trust-badge-icon">{badge.icon}</span>
-          <span className="trust-badge-label">{badge.label}</span>
+          <span className="trust-badge-label">{t(`trustBadges.${badge.key}`)}</span>
         </div>
       ))}
     </div>

@@ -3,11 +3,13 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '../context/AppContext';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 import './Navbar.css';
 
 export default function Navbar() {
   const { isAuthenticated, currentUser, logout } = useApp();
   const { theme, toggleTheme } = useTheme();
+  const { lang, setLang, t } = useLanguage();
   const navigate = useNavigate();
   const isRecruiter = currentUser?.role === 'recruiter';
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -20,20 +22,20 @@ export default function Navbar() {
 
   const navLinks = (
     <>
-      <li><NavLink to="/" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} end onClick={() => setMobileOpen(false)}>Home</NavLink></li>
-      <li><NavLink to="/jobs" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} onClick={() => setMobileOpen(false)}>Jobs</NavLink></li>
-      <li><NavLink to="/profile" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} onClick={() => setMobileOpen(false)}>Profile</NavLink></li>
-      <li><NavLink to="/messages" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} onClick={() => setMobileOpen(false)}>Messages</NavLink></li>
-      {isRecruiter && <li><NavLink to="/recruiter" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} onClick={() => setMobileOpen(false)}>Recruiter</NavLink></li>}
-      <li><NavLink to="/blog" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} onClick={() => setMobileOpen(false)}>Blog</NavLink></li>
-      <li><NavLink to="/pricing" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} onClick={() => setMobileOpen(false)}>Pricing</NavLink></li>
-      <li><NavLink to="/account" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} onClick={() => setMobileOpen(false)}>Account</NavLink></li>
+      <li><NavLink to="/" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} end onClick={() => setMobileOpen(false)}>{t('nav.home')}</NavLink></li>
+      <li><NavLink to="/jobs" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} onClick={() => setMobileOpen(false)}>{t('nav.jobs')}</NavLink></li>
+      <li><NavLink to="/profile" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} onClick={() => setMobileOpen(false)}>{t('nav.profile')}</NavLink></li>
+      <li><NavLink to="/messages" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} onClick={() => setMobileOpen(false)}>{t('nav.messages')}</NavLink></li>
+      {isRecruiter && <li><NavLink to="/recruiter" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} onClick={() => setMobileOpen(false)}>{t('nav.recruiter')}</NavLink></li>}
+      <li><NavLink to="/blog" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} onClick={() => setMobileOpen(false)}>{t('nav.blog')}</NavLink></li>
+      <li><NavLink to="/pricing" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} onClick={() => setMobileOpen(false)}>{t('nav.pricing')}</NavLink></li>
+      <li><NavLink to="/account" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} onClick={() => setMobileOpen(false)}>{t('nav.account')}</NavLink></li>
       {isAuthenticated ? (
-        <li><button className="nav-link nav-logout" onClick={handleLogout}>Logout</button></li>
+        <li><button className="nav-link nav-logout" onClick={handleLogout}>{t('nav.logout')}</button></li>
       ) : (
         <>
-          <li><NavLink to="/signup" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} onClick={() => setMobileOpen(false)}>Sign Up</NavLink></li>
-          <li><NavLink to="/login" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} onClick={() => setMobileOpen(false)}>Login</NavLink></li>
+          <li><NavLink to="/signup" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} onClick={() => setMobileOpen(false)}>{t('nav.signUp')}</NavLink></li>
+          <li><NavLink to="/login" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} onClick={() => setMobileOpen(false)}>{t('nav.login')}</NavLink></li>
         </>
       )}
     </>
@@ -49,14 +51,34 @@ export default function Navbar() {
 
         <ul className="navbar-links navbar-links-desktop">{navLinks}</ul>
 
-        <button
-          className="theme-toggle"
-          onClick={toggleTheme}
-          aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-          title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-        >
-          {theme === 'dark' ? '☀️' : '🌙'}
-        </button>
+        <div className="navbar-controls">
+          <select
+            className="lang-select"
+            value={lang}
+            onChange={(e) => setLang(e.target.value)}
+            aria-label="Select language"
+          >
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+            <option value="it">Italiano</option>
+            <option value="pt">Português</option>
+            <option value="zh">中文</option>
+            <option value="ja">日本語</option>
+            <option value="ko">한국어</option>
+            <option value="ar">العربية</option>
+            <option value="ru">Русский</option>
+          </select>
+          <button
+            className="theme-toggle"
+            onClick={toggleTheme}
+            aria-label={t('theme.switchTo')}
+            title={t('theme.switchTo')}
+          >
+            {theme === 'dark' ? '☀️' : '🌙'}
+          </button>
+        </div>
 
         <motion.button
           className="navbar-toggle"

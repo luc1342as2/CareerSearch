@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
 import './Help.css';
 
 const faqs = [
@@ -68,6 +69,7 @@ const faqs = [
 const categories = [...new Set(faqs.map((f) => f.category))];
 
 export default function Help() {
+  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [expandedId, setExpandedId] = useState(null);
@@ -84,16 +86,16 @@ export default function Help() {
   return (
     <main className="help-page">
       <div className="help-container">
-        <Link to="/" className="help-back">← Back to Home</Link>
+        <Link to="/" className="help-back">← {t('legal.backToHome')}</Link>
         <header className="help-header">
-          <h1>Help Center</h1>
-          <p>Find answers to common questions</p>
+          <h1>{t('legal.helpTitle')}</h1>
+          <p>{t('help.findAnswers')}</p>
         </header>
 
         <div className="help-search card">
           <input
             type="text"
-            placeholder="Search for help..."
+            placeholder={t('help.searchPlaceholder')}
             className="help-search-input"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -103,7 +105,7 @@ export default function Help() {
               className={`help-category-btn ${!selectedCategory ? 'active' : ''}`}
               onClick={() => setSelectedCategory('')}
             >
-              All
+              {t('help.all')}
             </button>
             {categories.map((cat) => (
               <button
@@ -135,13 +137,13 @@ export default function Help() {
         </div>
 
         {filteredFaqs.length === 0 && (
-          <p className="help-no-results">No results found. Try a different search or <Link to="/contact">contact us</Link>.</p>
+          <p className="help-no-results">{t('help.noResults')} <Link to="/contact">{t('help.contactUs')}</Link>.</p>
         )}
 
         <div className="help-contact-cta card">
-          <h3>Still need help?</h3>
-          <p>Our support team is here for you.</p>
-          <Link to="/contact" className="help-cta-btn">Contact Support</Link>
+          <h3>{t('help.stillNeedHelp')}</h3>
+          <p>{t('help.supportHere')}</p>
+          <Link to="/contact" className="help-cta-btn">{t('help.contactSupport')}</Link>
         </div>
       </div>
     </main>

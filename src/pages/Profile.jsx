@@ -1,10 +1,15 @@
 import { useState } from 'react';
 import { useApp } from '../context/AppContext';
+import { useLanguage } from '../context/LanguageContext';
+import UpdateCvButton from '../components/UpdateCvButton';
+import SkillsTagInput from '../components/SkillsTagInput';
 import './Profile.css';
 
 export default function Profile() {
+  const { t } = useLanguage();
   const {
     user,
+    updateUser,
     isCandidatePremium,
     canSeeProfileViewers,
     getProfileViewersList,
@@ -21,7 +26,7 @@ export default function Profile() {
           <div className="profile-header-top">
             <div className="profile-completion profile-completion-wrapper">
               <div className="completion-label">
-                <span>Profile completeness</span>
+                <span>{t('profile.completeness')}</span>
                 <strong>{user.profileStrength}%</strong>
               </div>
               <div className="progress-bar">
@@ -35,13 +40,13 @@ export default function Profile() {
               className="edit-btn"
               onClick={() => setIsEditing(!isEditing)}
             >
-              {isEditing ? 'Cancel' : 'Edit'}
+              {isEditing ? t('common.cancel') : t('common.edit')}
             </button>
           </div>
 
           {user.matchImprovementSuggestions?.length > 0 && (
             <div className="improve-suggestions">
-              <h3>Improve your match score</h3>
+              <h3>{t('profile.improveMatch')}</h3>
               <ul>
                 {user.matchImprovementSuggestions.map((suggestion, i) => (
                   <li key={i}>{suggestion}</li>
@@ -51,10 +56,10 @@ export default function Profile() {
           )}
           {user?.role === 'candidate' && (
             <div className="profile-premium-actions">
-              {isProfileBoosted() && <span className="boost-badge">Profile boosted</span>}
+              {isProfileBoosted() && <span className="boost-badge">{t('profile.profileBoosted')}</span>}
               {isCandidatePremium && !isProfileBoosted() && (
                 <button className="boost-btn" onClick={() => boostProfile()}>
-                  Boost Profile
+                  {t('profile.boostProfile')}
                 </button>
               )}
             </div>
@@ -63,29 +68,29 @@ export default function Profile() {
 
         <div className="profile-sections">
           <section className="profile-section card">
-            <h2>Personal Info</h2>
+            <h2>{t('profile.personalInfo')}</h2>
             <div className="info-grid">
               <div className="info-item">
-                <span className="label">Full Name</span>
+                <span className="label">{t('profile.fullName')}</span>
                 <span className="value">{user.fullName}</span>
               </div>
               <div className="info-item">
-                <span className="label">Email</span>
+                <span className="label">{t('login.email')}</span>
                 <span className="value">{user.email}</span>
               </div>
               <div className="info-item">
-                <span className="label">Phone</span>
+                <span className="label">{t('profile.phone')}</span>
                 <span className="value">{user.phone || '—'}</span>
               </div>
               <div className="info-item">
-                <span className="label">Location</span>
+                <span className="label">{t('profile.location')}</span>
                 <span className="value">{user.location}</span>
               </div>
             </div>
           </section>
 
           <section className="profile-section card">
-            <h2>Experience</h2>
+            <h2>{t('profile.experience')}</h2>
             <ul className="experience-list">
               {user.experience.map((exp, i) => (
                 <li key={i}>
@@ -96,17 +101,25 @@ export default function Profile() {
           </section>
 
           <section className="profile-section card">
-            <h2>Skills</h2>
+            <h2>{t('profile.skills')}</h2>
             <div className="skills-list">
-              <h3>Hard Skills</h3>
+              <h3>{t('profile.hardSkills')}</h3>
+              {isEditing ? (
+                <SkillsTagInput
+                  value={user.skills || []}
+                  onChange={(skills) => updateUser({ skills })}
+                  placeholder="Type to add skills (autocomplete)"
+                />
+              ) : (
+                <div className="skill-tags">
+                  {(user.skills || []).map((skill) => (
+                    <span key={skill} className="skill-tag">{skill}</span>
+                  ))}
+                </div>
+              )}
+              <h3>{t('profile.softSkills')}</h3>
               <div className="skill-tags">
-                {user.skills.map((skill) => (
-                  <span key={skill} className="skill-tag">{skill}</span>
-                ))}
-              </div>
-              <h3>Soft Skills</h3>
-              <div className="skill-tags">
-                {user.softSkills.map((skill) => (
+                {(user.softSkills || []).map((skill) => (
                   <span key={skill} className="skill-tag soft">{skill}</span>
                 ))}
               </div>
@@ -114,12 +127,12 @@ export default function Profile() {
           </section>
 
           <section className="profile-section card">
-            <h2>Education</h2>
+            <h2>{t('profile.education')}</h2>
             <p>{user.education}</p>
           </section>
 
           <section className="profile-section card">
-            <h2>Certifications</h2>
+            <h2>{t('profile.certifications')}</h2>
             <ul>
               {user.certifications.map((cert) => (
                 <li key={cert}>{cert}</li>
@@ -128,23 +141,26 @@ export default function Profile() {
           </section>
 
           <section className="profile-section card">
-            <h2>Video CV</h2>
+            <h2>{t('profile.videoCv')}</h2>
             <div className="video-cv-section">
               {user.videoCvUploaded ? (
                 <div className="video-cv-uploaded">
                   <span className="video-icon">✓</span>
-                  <p>Video CV uploaded {!canUploadVideoCV().unlimited && `(1/${canUploadVideoCV().limit})`}</p>
+                  <p>{t('profile.videoCvUploaded')} {!canUploadVideoCV().unlimited && `(1/${canUploadVideoCV().limit})`}</p>
+                  {user.videoCvUrl && (
+                    <a href={user.videoCvUrl} target="_blank" rel="noopener noreferrer" className="video-cv-link">
+                      {t('profile.viewPlay')}
+                    </a>
+                  )}
                 </div>
               ) : (
                 <div className="video-cv-placeholder">
                   <span className="video-icon">🎬</span>
-                  <p>No video CV yet</p>
+                  <p>{t('profile.uploadMp4StandOut')}</p>
                   {canUploadVideoCV().allowed ? (
-                    <button className="upload-video-btn" onClick={() => alert('Video upload would start. Demo.')}>
-                      Upload Video CV
-                    </button>
+                    <UpdateCvButton variant="video-only" />
                   ) : (
-                    <p className="video-cv-locked">Upgrade to Premium for unlimited video CVs</p>
+                    <p className="video-cv-locked">{t('profile.upgradeForVideo')}</p>
                   )}
                 </div>
               )}
@@ -153,7 +169,7 @@ export default function Profile() {
 
           {user?.role === 'candidate' && (
             <section className="profile-section card">
-              <h2>Who Viewed Your Profile</h2>
+              <h2>{t('profile.whoViewed')}</h2>
               {canSeeProfileViewers() ? (
                 <div className="profile-viewers">
                   {getProfileViewersList().length ? (
@@ -167,18 +183,41 @@ export default function Profile() {
                       ))}
                     </ul>
                   ) : (
-                    <p>No profile views yet</p>
+                    <p>{t('profile.noProfileViews')}</p>
                   )}
                 </div>
               ) : (
-                <p className="profile-viewers-locked">Upgrade to Premium to see who viewed your profile</p>
+                <p className="profile-viewers-locked">{t('profile.upgradeToSeeViewers')}</p>
               )}
             </section>
           )}
 
           <section className="profile-section card">
-            <h2>Portfolio Links</h2>
+            <h2>Portfolio</h2>
+            {(user.portfolioProjects || []).length > 0 && (
+              <div className="portfolio-projects">
+                {user.portfolioProjects.map((p) => (
+                  <div key={p.id} className="portfolio-project-item">
+                    <h4>{p.title}</h4>
+                    <p>{p.description}</p>
+                    {p.tech?.length > 0 && (
+                      <div className="portfolio-project-tech">
+                        {p.tech.map((t) => (
+                          <span key={t} className="tech-tag">{t}</span>
+                        ))}
+                      </div>
+                    )}
+                    {p.url && (
+                    <a href={p.url} target="_blank" rel="noopener noreferrer" className="portfolio-project-link">
+                        {t('profile.viewProject')} →
+                    </a>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
             <div className="portfolio-links">
+              <h3>{t('profile.links')}</h3>
               {user.linkedIn && (
                 <a href={user.linkedIn} target="_blank" rel="noopener noreferrer" className="portfolio-link">
                   LinkedIn
@@ -198,20 +237,20 @@ export default function Profile() {
           </section>
 
           <section className="profile-section card">
-            <h2>Preferences</h2>
+            <h2>{t('profile.preferences')}</h2>
             <ul className="preferences-list">
               <li>
-                <span>Salary:</span> ${(user.preferences.salaryRange.min / 1000).toFixed(0)}k - $
+                <span>{t('profile.salary')}:</span> ${(user.preferences.salaryRange.min / 1000).toFixed(0)}k - $
                 {(user.preferences.salaryRange.max / 1000).toFixed(0)}k
               </li>
               <li>
-                <span>Work Type:</span> {user.preferences.workType.join(', ')}
+                <span>{t('profile.workType')}:</span> {user.preferences.workType.join(', ')}
               </li>
               <li>
-                <span>Employment:</span> {user.preferences.employmentType}
+                <span>{t('profile.employment')}:</span> {user.preferences.employmentType}
               </li>
               <li>
-                <span>Preferred Countries:</span> {user.preferences.preferredCountries.join(', ')}
+                <span>{t('profile.preferredCountries')}:</span> {user.preferences.preferredCountries.join(', ')}
               </li>
             </ul>
           </section>

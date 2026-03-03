@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
+import { useLanguage } from '../context/LanguageContext';
 import './SignUp.css';
 
 export default function SignUp() {
   const { signUp } = useApp();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: '',
@@ -19,18 +21,18 @@ export default function SignUp() {
     e.preventDefault();
     setError('');
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
+      setError(t('signup.errPasswordsMatch'));
       return;
     }
     if (formData.password.length < 6) {
-      setError('Password must be at least 6 characters');
+      setError(t('signup.errPasswordLength'));
       return;
     }
     const result = signUp(formData.email.trim(), formData.password, formData.fullName.trim(), formData.role);
     if (result.success) {
       navigate('/', { replace: true });
     } else {
-      setError(result.message || 'Sign up failed');
+      setError(result.message || t('signup.errSignUpFailed'));
     }
   };
 
@@ -38,8 +40,8 @@ export default function SignUp() {
     <main className="signup-page">
       <div className="signup-container card">
         <div className="signup-header">
-          <h1>Create Account</h1>
-          <p>Join CareerSearch to find your dream job</p>
+          <h1>{t('signup.createAccount')}</h1>
+          <p>{t('signup.joinTagline')}</p>
         </div>
         <form onSubmit={handleSubmit} className="signup-form">
           {error && <div className="signup-error">{error}</div>}
@@ -54,7 +56,7 @@ export default function SignUp() {
                   checked={formData.role === 'candidate'}
                   onChange={(e) => setFormData((f) => ({ ...f, role: e.target.value }))}
                 />
-                <span>Job Seeker</span>
+                <span>{t('signup.jobSeeker')}</span>
               </label>
               <label className={`role-option ${formData.role === 'recruiter' ? 'selected' : ''}`}>
                 <input
@@ -64,7 +66,7 @@ export default function SignUp() {
                   checked={formData.role === 'recruiter'}
                   onChange={(e) => setFormData((f) => ({ ...f, role: e.target.value }))}
                 />
-                <span>Recruiter</span>
+                <span>{t('signup.recruiter')}</span>
               </label>
             </div>
           </div>
@@ -79,7 +81,7 @@ export default function SignUp() {
             />
           </div>
           <div className="form-group">
-            <label>Email</label>
+            <label>{t('contact.email')}</label>
             <input
               type="email"
               value={formData.email}
@@ -89,12 +91,12 @@ export default function SignUp() {
             />
           </div>
           <div className="form-group">
-            <label>Password</label>
+            <label>{t('signup.password')}</label>
             <input
               type="password"
               value={formData.password}
               onChange={(e) => setFormData((f) => ({ ...f, password: e.target.value }))}
-              placeholder="Min. 6 characters"
+              placeholder={t('signup.min6Chars')}
               required
               minLength={6}
             />
@@ -109,10 +111,10 @@ export default function SignUp() {
               required
             />
           </div>
-          <button type="submit" className="signup-btn">Create Account</button>
+          <button type="submit" className="signup-btn">{t('signup.createAccountBtn')}</button>
         </form>
         <p className="signup-login">
-          Already have an account? <Link to="/login">Sign in</Link>
+          {t('signup.alreadyHave')} <Link to="/login">{t('signup.signIn')}</Link>
         </p>
       </div>
     </main>

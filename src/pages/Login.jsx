@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useApp } from '../context/AppContext';
+import { useLanguage } from '../context/LanguageContext';
 import './Login.css';
 
 export default function Login() {
   const { login, isAuthenticated } = useApp();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -41,13 +43,13 @@ export default function Login() {
         transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
       >
         <div className="login-header">
-          <h1>Welcome to CareerSearch</h1>
-          <p>Sign in to access your account</p>
+          <h1>{t('login.welcome')}</h1>
+          <p>{t('login.signIn')}</p>
         </div>
         <form onSubmit={handleSubmit} className="login-form">
           {error && <div className="login-error">{error}</div>}
           <div className="form-group">
-            <label>I am a</label>
+            <label>{t('login.iAm')}</label>
             <div className="role-selector">
               <label className={`role-option ${role === 'candidate' ? 'selected' : ''}`}>
                 <input
@@ -57,7 +59,7 @@ export default function Login() {
                   checked={role === 'candidate'}
                   onChange={(e) => setRole(e.target.value)}
                 />
-                <span>Candidate</span>
+                <span>{t('login.candidate')}</span>
               </label>
               <label className={`role-option ${role === 'recruiter' ? 'selected' : ''}`}>
                 <input
@@ -67,12 +69,12 @@ export default function Login() {
                   checked={role === 'recruiter'}
                   onChange={(e) => setRole(e.target.value)}
                 />
-                <span>Recruiter</span>
+                <span>{t('login.recruiter')}</span>
               </label>
             </div>
           </div>
           <div className="form-group">
-            <label>Email</label>
+            <label>{t('login.email')}</label>
             <input
               type="email"
               value={email}
@@ -83,7 +85,7 @@ export default function Login() {
             />
           </div>
           <div className="form-group">
-            <label>Password</label>
+            <label>{t('login.password')}</label>
             <input
               type="password"
               value={password}
@@ -93,10 +95,10 @@ export default function Login() {
               autoComplete="current-password"
             />
           </div>
-          <button type="submit" className="login-btn">Sign In</button>
+          <button type="submit" className="login-btn">{t('login.signInBtn')}</button>
         </form>
         <p className="login-signup">
-          Don't have an account? <Link to="/signup">Create account</Link>
+          {t('login.noAccount')} <Link to="/signup">{t('login.createAccount')}</Link>
         </p>
         <div className="login-demo">
           <p>Demo credentials:</p>

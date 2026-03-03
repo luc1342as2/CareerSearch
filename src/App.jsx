@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
 import { ThemeProvider } from './context/ThemeContext';
+import { LanguageProvider } from './context/LanguageContext';
 import Navbar from './components/Navbar';
 import ScrollToTop from './components/ScrollToTop';
 import Footer from './components/Footer';
@@ -28,6 +29,7 @@ import './App.css';
 function App() {
   return (
     <ThemeProvider>
+      <LanguageProvider>
       <AppProvider>
         <BrowserRouter basename="/CareerSearch">
         <ScrollToTop />
@@ -59,6 +61,7 @@ function App() {
         </div>
       </BrowserRouter>
     </AppProvider>
+    </LanguageProvider>
     </ThemeProvider>
   );
 }

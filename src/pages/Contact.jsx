@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
 import './Contact.css';
 
 export default function Contact() {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -30,36 +32,36 @@ export default function Contact() {
   return (
     <main className="contact-page">
       <div className="contact-container">
-        <Link to="/" className="contact-back">← Back to Home</Link>
+        <Link to="/" className="contact-back">← {t('contact.backToHome')}</Link>
         <header className="contact-header">
-          <h1>Contact Us</h1>
-          <p>We'd love to hear from you. Get in touch with our team.</p>
+          <h1>{t('contact.contactUs')}</h1>
+          <p>{t('contact.getInTouch')}</p>
         </header>
 
         <div className="contact-layout">
           <div className="contact-form-wrapper card">
-            <h3>Send a Message</h3>
+            <h3>{t('contact.sendMessage')}</h3>
             {submitted ? (
               <div className="contact-success">
-                <p>Thank you for your message! We'll get back to you within 24–48 hours.</p>
-                <button onClick={() => setSubmitted(false)} className="contact-reset-btn">Send another message</button>
+                <p>{t('contact.thankYou')}</p>
+                <button onClick={() => setSubmitted(false)} className="contact-reset-btn">{t('contact.sendAnother')}</button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="contact-form">
                 <div className="form-row">
                   <div className="form-group">
-                    <label>Name</label>
+                    <label>{t('contact.name')}</label>
                     <input
                       type="text"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      placeholder="Your name"
+                      placeholder={t('contact.yourName')}
                     />
                   </div>
                   <div className="form-group">
-                    <label>Email</label>
+                    <label>{t('contact.email')}</label>
                     <input
                       type="email"
                       name="email"
@@ -71,76 +73,76 @@ export default function Contact() {
                   </div>
                 </div>
                 <div className="form-group">
-                  <label>Category</label>
+                  <label>{t('contact.category')}</label>
                   <select name="category" value={formData.category} onChange={handleChange}>
-                    <option value="general">General Inquiry</option>
-                    <option value="support">Technical Support</option>
-                    <option value="billing">Billing</option>
-                    <option value="recruiter">Recruiter Support</option>
-                    <option value="partnership">Partnership</option>
+                    <option value="general">{t('contact.generalInquiry')}</option>
+                    <option value="support">{t('contact.technicalSupport')}</option>
+                    <option value="billing">{t('contact.billing')}</option>
+                    <option value="recruiter">{t('contact.recruiterSupport')}</option>
+                    <option value="partnership">{t('contact.partnership')}</option>
                   </select>
                 </div>
                 <div className="form-group">
-                  <label>Subject</label>
+                  <label>{t('contact.subject')}</label>
                   <input
                     type="text"
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    placeholder="Brief subject"
+                    placeholder={t('contact.briefSubject')}
                   />
                 </div>
                 <div className="form-group">
-                  <label>Message</label>
+                  <label>{t('contact.message')}</label>
                   <textarea
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     required
                     rows={5}
-                    placeholder="How can we help?"
+                    placeholder={t('contact.howCanWeHelp')}
                   />
                 </div>
-                <button type="submit" className="contact-submit-btn">Send Message</button>
+                <button type="submit" className="contact-submit-btn">{t('contact.sendMsg')}</button>
               </form>
             )}
           </div>
 
           <div className="contact-info card">
-            <h3>Get in Touch</h3>
+            <h3>{t('contact.getInTouch')}</h3>
             <div className="contact-detail">
               <span className="contact-icon">📧</span>
               <div>
-                <strong>Email</strong>
+                <strong>{t('contact.email')}</strong>
                 <p>support@careersearch.com</p>
               </div>
             </div>
             <div className="contact-detail">
               <span className="contact-icon">📧</span>
               <div>
-                <strong>Recruiters</strong>
+                <strong>{t('contact.recruiters')}</strong>
                 <p>recruiters@careersearch.com</p>
               </div>
             </div>
             <div className="contact-detail">
               <span className="contact-icon">📧</span>
               <div>
-                <strong>Privacy & Legal</strong>
+                <strong>{t('contact.privacyLegal')}</strong>
                 <p>privacy@careersearch.com</p>
               </div>
             </div>
             <div className="contact-detail">
               <span className="contact-icon">📍</span>
               <div>
-                <strong>Office</strong>
+                <strong>{t('contact.office')}</strong>
                 <p>123 Career Street, San Francisco, CA 94102</p>
               </div>
             </div>
             <div className="contact-detail">
               <span className="contact-icon">🕐</span>
               <div>
-                <strong>Support Hours</strong>
+                <strong>{t('contact.supportHours')}</strong>
                 <p>Mon–Fri: 9am–6pm PST</p>
               </div>
             </div>

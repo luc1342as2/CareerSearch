@@ -1,9 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { mockConversations, mockChatMessages } from '../data/mockData';
+import { useLanguage } from '../context/LanguageContext';
 import './Messages.css';
 
 export default function Messages() {
+  const { t } = useLanguage();
   const location = useLocation();
   const openConversation = location.state?.openConversation;
   const [selectedChat, setSelectedChat] = useState(openConversation || null);
@@ -70,7 +72,7 @@ export default function Messages() {
     <main className="messages-page">
       <div className="messages-container">
         <aside className="conversations-list">
-          <h2>Conversations</h2>
+          <h2>{t('messages.conversations')}</h2>
           <div className="conversation-items">
             {mockConversations.map((conv) => (
               <div
@@ -104,7 +106,7 @@ export default function Messages() {
                   className="schedule-meeting-btn"
                   onClick={() => setShowScheduleModal(true)}
                 >
-                  📅 Schedule Meeting
+                  📅 {t('messages.scheduleMeeting')}
                 </button>
               </div>
 
@@ -129,9 +131,9 @@ export default function Messages() {
                   <button
                     className="attach-btn"
                     onClick={() => fileInputRef.current?.click()}
-                    title="Attach file"
+                    title={t('messages.attachFile')}
                   >
-                    📎 Attach
+                    📎 {t('messages.attach')}
                   </button>
                   {attachedFiles.length > 0 && (
                     <div className="attached-files">
@@ -147,13 +149,13 @@ export default function Messages() {
                 <div className="chat-input-row">
                   <input
                     type="text"
-                    placeholder="Type a message..."
+                    placeholder={t('messages.typeMessage')}
                     value={messageInput}
                     onChange={(e) => setMessageInput(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleSend()}
                   />
                   <button className="send-btn" onClick={handleSend}>
-                    Send
+                    {t('messages.send')}
                   </button>
                 </div>
               </div>
@@ -171,9 +173,9 @@ export default function Messages() {
       {showScheduleModal && (
         <div className="modal-overlay" onClick={() => setShowScheduleModal(false)}>
           <div className="modal-content card" onClick={(e) => e.stopPropagation()}>
-            <h3>Schedule Meeting</h3>
+            <h3>{t('messages.scheduleMeeting')}</h3>
             <div className="form-group">
-              <label>Date</label>
+              <label>{t('messages.date')}</label>
               <input
                 type="date"
                 value={scheduleDate}
@@ -181,7 +183,7 @@ export default function Messages() {
               />
             </div>
             <div className="form-group">
-              <label>Time</label>
+              <label>{t('messages.time')}</label>
               <input
                 type="time"
                 value={scheduleTime}
@@ -190,10 +192,10 @@ export default function Messages() {
             </div>
             <div className="modal-actions">
               <button className="btn btn-secondary" onClick={() => setShowScheduleModal(false)}>
-                Cancel
+                {t('messages.cancel')}
               </button>
               <button className="btn btn-primary" onClick={handleScheduleMeeting}>
-                Schedule
+                {t('messages.schedule')}
               </button>
             </div>
           </div>

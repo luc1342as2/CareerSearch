@@ -1,13 +1,15 @@
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
 import './Legal.css';
 
 export default function Terms() {
+  const { t } = useLanguage();
   return (
     <main className="legal-page">
       <div className="legal-container">
-        <Link to="/" className="legal-back">← Back to Home</Link>
+        <Link to="/" className="legal-back">← {t('legal.backToHome')}</Link>
         <header className="legal-header">
-          <h1>Terms of Service</h1>
+          <h1>{t('legal.termsTitle')}</h1>
           <p className="legal-updated">Last updated: March 3, 2025</p>
         </header>
 

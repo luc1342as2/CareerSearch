@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useApp } from '../context/AppContext';
+import { useLanguage } from '../context/LanguageContext';
 import './SkillsCompatibilityGraph.css';
 
 export default function SkillsCompatibilityGraph() {
   const { user, jobs, getSkillsCompatibility } = useApp();
+  const { t } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   const data = getSkillsCompatibility();
@@ -22,11 +24,11 @@ export default function SkillsCompatibilityGraph() {
 
   return (
     <div className="skills-graph card">
-      <h2>Skills Compatibility</h2>
+      <h2>{t('skills.compatibility')}</h2>
       <p className="graph-subtitle">
         {user?.cvUploaded
-          ? 'Based on your profile and CV'
-          : 'Upload your CV to see how your skills match job requirements'}
+          ? t('skills.basedOnProfile')
+          : t('skills.uploadToSee')}
       </p>
 
       {data.length > 0 ? (
@@ -35,7 +37,7 @@ export default function SkillsCompatibilityGraph() {
             <div key={item.skill} className="skill-row">
               <div className="skill-label">
                 <span className="skill-name">{item.skill}</span>
-                {item.required && <span className="required-badge">Required</span>}
+                {item.required && <span className="required-badge">{t('skills.required')}</span>}
               </div>
               <div className="bar-container">
                 <motion.div
@@ -58,12 +60,12 @@ export default function SkillsCompatibilityGraph() {
         </div>
       ) : (
         <div className="skills-empty">
-          <p>Upload your CV to analyze your skills compatibility</p>
+          <p>{t('skills.uploadToAnalyze')}</p>
         </div>
       )}
 
       <div className="profile-strength">
-        <span>Profile Strength</span>
+        <span>{t('skills.profileStrength')}</span>
         <div className="strength-bar">
           <motion.div
             className="strength-fill"

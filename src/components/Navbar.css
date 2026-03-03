@@ -53,6 +53,23 @@
   gap: 0.25rem;
 }
 
+.navbar-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.lang-select {
+  padding: 0.4rem 0.6rem;
+  background: var(--hover-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  max-width: 140px;
+}
+
 .theme-toggle {
   padding: 0.5rem;
   background: var(--hover-bg);

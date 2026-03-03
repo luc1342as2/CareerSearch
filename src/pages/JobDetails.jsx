@@ -2,20 +2,21 @@ import { useState } from 'react';
 import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useApp } from '../context/AppContext';
+import { useLanguage } from '../context/LanguageContext';
 import './JobDetails.css';
-
-const TABS = [
-  { id: 'description', label: 'Description' },
-  { id: 'requirements', label: 'Requirements' },
-  { id: 'benefits', label: 'Benefits' },
-];
 
 export default function JobDetails() {
   const { id } = useParams();
-  const { jobs, saveJob, unsaveJob, savedJobs, applyToJob, isAuthenticated, getAdvancedAIInsights, isCandidatePremium } = useApp();
+  const { jobsWithMatch, saveJob, unsaveJob, savedJobs, applyToJob, isAuthenticated, getAdvancedAIInsights, isCandidatePremium } = useApp();
+  const { t } = useLanguage();
+  const TABS = [
+    { id: 'description', label: t('jobDetails.description') },
+    { id: 'requirements', label: t('jobDetails.requirements') },
+    { id: 'benefits', label: t('jobDetails.benefits') },
+  ];
   const navigate = useNavigate();
   const location = useLocation();
-  const job = jobs.find((j) => j.id === id);
+  const job = jobsWithMatch.find((j) => j.id === id);
   const [aiInsights, setAiInsights] = useState(null);
   const [activeTab, setActiveTab] = useState('description');
 
@@ -32,8 +33,8 @@ export default function JobDetails() {
     return (
       <main className="job-details-page">
         <div className="job-details-container">
-          <p>Job not found.</p>
-          <Link to="/jobs">Back to Jobs</Link>
+          <p>{t('jobDetails.jobNotFound')}</p>
+          <Link to="/jobs">{t('jobDetails.backToJobs')}</Link>
         </div>
       </main>
     );
@@ -44,21 +45,21 @@ export default function JobDetails() {
   return (
     <main className="job-details-page">
       <div className="job-details-container">
-        <Link to="/jobs" className="back-link">← Back to Jobs</Link>
+        <Link to="/jobs" className="back-link">← {t('jobDetails.backToJobs')}</Link>
 
         <header className="job-details-header">
           <div className="job-title-row">
             <h1>{job.title}</h1>
             <span className={`match-badge ${job.matchScore >= 90 ? 'high' : job.matchScore >= 75 ? 'medium' : 'low'}`}>
-              {job.matchScore}% match
+              {job.matchScore}% {t('jobs.match')}
             </span>
           </div>
           <div className="company-info">
             <h2>{job.company}</h2>
             <p className="job-meta">
               {job.location} • {job.workType} • {job.employmentType}
-              {job.featured && <span className="job-badge featured">Featured</span>}
-              {job.sponsored && <span className="job-badge sponsored">Sponsored</span>}
+              {job.featured && <span className="job-badge featured">{t('jobDetails.featured')}</span>}
+              {job.sponsored && <span className="job-badge sponsored">{t('jobDetails.sponsored')}</span>}
             </p>
             <p className="job-salary">
               ${(job.salaryRange.min / 1000).toFixed(0)}k - ${(job.salaryRange.max / 1000).toFixed(0)}k
@@ -87,7 +88,7 @@ export default function JobDetails() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.2 }}
               >
-                <h3>Job Description</h3>
+                <h3>{t('jobDetails.jobDescription')}</h3>
                 <p className="job-description">{job.description}</p>
               </motion.section>
             )}
@@ -98,16 +99,16 @@ export default function JobDetails() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.2 }}
               >
-                <h3>Required Skills</h3>
+                <h3>{t('jobDetails.requiredSkills')}</h3>
                 <div className="skills-highlighted">
                   {job.skills.map((skill) => (
                     <span key={skill} className="skill-tag highlighted">{skill}</span>
                   ))}
                 </div>
                 <div className="job-meta-inline">
-                  <p><span>Experience:</span> {job.experienceLevel}</p>
-                  <p><span>Posted:</span> {job.postedDate}</p>
-                  <p><span>Deadline:</span> {job.deadline}</p>
+                  <p><span>{t('jobDetails.experience')}:</span> {job.experienceLevel}</p>
+                  <p><span>{t('jobDetails.posted')}:</span> {job.postedDate}</p>
+                  <p><span>{t('jobDetails.deadline')}:</span> {job.deadline}</p>
                 </div>
               </motion.section>
             )}
@@ -118,7 +119,7 @@ export default function JobDetails() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.2 }}
               >
-                <h3>Benefits</h3>
+                <h3>{t('jobDetails.benefits')}</h3>
                 <ul className="benefits-list">
                   {job.benefits.map((benefit) => (
                     <li key={benefit}>{benefit}</li>
@@ -129,21 +130,21 @@ export default function JobDetails() {
           </div>
 
           <section className="job-section card match-explanation">
-            <h3>Why this job matches you</h3>
+            <h3>{t('jobDetails.whyFits')}</h3>
             <p>{job.matchReason}</p>
             {isAuthenticated && (
               <button className="ai-insights-btn" onClick={handleGetAIInsights}>
-                {isCandidatePremium ? 'Advanced AI Insights' : '🔒 Advanced AI Insights (Premium)'}
+                {isCandidatePremium ? t('jobDetails.advancedAi') : `🔒 ${t('jobDetails.advancedAiPremium')}`}
               </button>
             )}
             {aiInsights && (
               <div className="ai-insights-panel">
-                <h4>Advanced AI Insights</h4>
+                <h4>{t('jobDetails.advancedAi')}</h4>
                 <ul>
-                  <li><strong>Skill gap:</strong> {aiInsights.skillGapAnalysis?.[0]}</li>
-                  <li><strong>Salary benchmark:</strong> {aiInsights.salaryBenchmark}</li>
-                  <li><strong>Interview likelihood:</strong> {aiInsights.interviewLikelihood}%</li>
-                  <li><strong>Competition:</strong> {aiInsights.competitorAnalysis}</li>
+                  <li><strong>{t('jobDetails.skillGap')}:</strong> {aiInsights.skillGapAnalysis?.[0]}</li>
+                  <li><strong>{t('jobDetails.salaryBenchmark')}:</strong> {aiInsights.salaryBenchmark}</li>
+                  <li><strong>{t('jobDetails.interviewLikelihood')}:</strong> {aiInsights.interviewLikelihood}%</li>
+                  <li><strong>{t('jobDetails.competition')}:</strong> {aiInsights.competitorAnalysis}</li>
                 </ul>
               </div>
             )}
@@ -158,7 +159,7 @@ export default function JobDetails() {
               else applyToJob(job.id);
             }}
           >
-            {!isAuthenticated ? 'Login to Apply' : 'Apply'}
+            {!isAuthenticated ? t('jobDetails.loginToApply') : t('common.apply')}
           </button>
           <button
             className={`btn btn-secondary ${isSaved ? 'saved' : ''}`}
@@ -167,7 +168,7 @@ export default function JobDetails() {
               else isSaved ? unsaveJob(job.id) : saveJob(job.id);
             }}
           >
-            {!isAuthenticated ? 'Login to Save' : (isSaved ? '✓ Saved' : 'Save Job')}
+            {!isAuthenticated ? t('common.loginToSave') : (isSaved ? `✓ ${t('common.saved')}` : t('jobDetails.saveJob'))}
           </button>
         </div>
       </div>

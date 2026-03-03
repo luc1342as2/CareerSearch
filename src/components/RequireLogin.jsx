@@ -1,9 +1,11 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
+import { useLanguage } from '../context/LanguageContext';
 import './RequireLogin.css';
 
 export default function RequireLogin({ children }) {
   const { isAuthenticated } = useApp();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -11,13 +13,13 @@ export default function RequireLogin({ children }) {
     return (
       <main className="require-login-page">
         <div className="require-login-card card">
-          <h2>Login Required</h2>
-          <p>Please sign in to access this page</p>
+          <h2>{t('requireLogin.title')}</h2>
+          <p>{t('requireLogin.signInToAccess')}</p>
           <button
             className="require-login-btn"
             onClick={() => navigate('/login', { state: { from: location } })}
           >
-            Sign In
+            {t('requireLogin.signIn')}
           </button>
         </div>
       </main>

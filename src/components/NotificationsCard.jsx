@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useApp } from '../context/AppContext';
+import { useLanguage } from '../context/LanguageContext';
 import './NotificationsCard.css';
 
 const NOTIFICATION_CONFIG = {
@@ -13,6 +14,7 @@ const NOTIFICATION_CONFIG = {
 
 export default function NotificationsCard() {
   const { notifications, markNotificationRead } = useApp();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const unreadCount = notifications.filter((n) => !n.read).length;
   const displayNotifications = notifications.slice(0, 5);
@@ -32,20 +34,20 @@ export default function NotificationsCard() {
     <div className="notifications-card card">
       <div className="notifications-card-header">
         <div className="notifications-title-row">
-          <h2>Notifications</h2>
+          <h2>{t('notifications.title')}</h2>
           {unreadCount > 0 && (
             <span className="unread-badge">{unreadCount}</span>
           )}
         </div>
-        <Link to="/notifications" className="view-all-link">View All</Link>
+        <Link to="/notifications" className="view-all-link">{t('common.viewAll')}</Link>
       </div>
 
       <div className="notifications-list">
         {displayNotifications.length === 0 ? (
           <div className="notifications-empty">
             <span className="empty-icon">✓</span>
-            <p>You're all caught up</p>
-            <span className="empty-sub">No new notifications</span>
+            <p>{t('notifications.allCaughtUp')}</p>
+            <span className="empty-sub">{t('notifications.noNew')}</span>
           </div>
         ) : (
           displayNotifications.map((notification, i) => {

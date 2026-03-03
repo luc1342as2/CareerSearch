@@ -56,6 +56,10 @@ export const mockUser = {
   linkedIn: 'https://linkedin.com/in/alexjohnson',
   portfolio: 'https://alexjohnson.dev',
   github: 'https://github.com/alexjohnson',
+  portfolioProjects: [
+    { id: 'p1', title: 'E-commerce Dashboard', description: 'Real-time analytics dashboard built with React and Node.js', url: 'https://alexjohnson.dev/project1', tech: ['React', 'Node.js', 'Chart.js'] },
+    { id: 'p2', title: 'AI Job Matcher', description: 'ML-powered job recommendation system', url: 'https://github.com/alexjohnson/job-matcher', tech: ['Python', 'TensorFlow', 'FastAPI'] },
+  ],
 };
 
 // Subscription & monetization
@@ -470,6 +474,16 @@ export const mockJobs = [
 export const mockNotifications = [
   {
     id: '1',
+    type: 'smart_job_alert',
+    title: '🤖 Smart Alert: New relevant job',
+    message: 'DevOps Engineer at CloudScale — 88% match. Your AWS & infrastructure skills align.',
+    time: '30 min ago',
+    read: false,
+    link: '/jobs/9',
+    jobId: '9',
+  },
+  {
+    id: '2',
     type: 'new_match',
     title: 'New job match: Senior React Developer',
     message: 'TechFlow Inc has a 95% match with your profile.',
@@ -489,7 +503,7 @@ export const mockNotifications = [
     jobId: '2',
   },
   {
-    id: '3',
+    id: '4',
     type: 'recruiter_message',
     title: 'New message from recruiter',
     message: 'Sarah from TechFlow wants to schedule an interview.',
@@ -516,13 +530,13 @@ export const mockPostedJobs = [
 ];
 
 export const mockCandidates = [
-  { id: 'c1', fullName: 'Alex Johnson', email: 'alex.johnson@email.com', phone: '+1 (555) 123-4567', matchScore: 95, experience: '5 years', skills: ['React', 'TypeScript', 'Node.js'], location: 'San Francisco', availability: 'Immediate', jobId: '1', education: 'B.S. Computer Science - Stanford', linkedIn: 'linkedin.com/in/alexjohnson', summary: 'Senior frontend developer with 5+ years building scalable web applications. Passionate about React ecosystem and clean code.' },
-  { id: 'c2', fullName: 'Maria Garcia', email: 'maria.garcia@email.com', phone: '+1 (555) 234-5678', matchScore: 92, experience: '4 years', skills: ['React', 'JavaScript', 'AWS'], location: 'Remote', availability: '2 weeks', jobId: '1', education: 'M.S. Software Engineering - MIT', linkedIn: 'linkedin.com/in/mariagarcia', summary: 'Full-stack engineer with strong React and cloud experience. Led migration to serverless architecture.' },
-  { id: 'c3', fullName: 'David Chen', email: 'david.chen@email.com', phone: '+1 (555) 345-6789', matchScore: 88, experience: '3 years', skills: ['React', 'Python', 'PostgreSQL'], location: 'New York', availability: '1 month', jobId: '1', education: 'B.S. Computer Science - Berkeley', linkedIn: 'linkedin.com/in/davidchen', summary: 'Software engineer with Python and React expertise. Experience in fintech and e-commerce.' },
-  { id: 'c4', fullName: 'Sarah Williams', email: 'sarah.w@email.com', phone: '+1 (555) 456-7890', matchScore: 85, experience: '6 years', skills: ['Node.js', 'AWS', 'Docker'], location: 'Austin', availability: 'Immediate', jobId: '1', education: 'B.S. Computer Science - UT Austin', linkedIn: 'linkedin.com/in/sarahwilliams', summary: 'Senior backend engineer with DevOps experience. Built scalable microservices.' },
-  { id: 'c5', fullName: 'James Lee', email: 'james.lee@email.com', phone: '+1 (555) 567-8901', matchScore: 82, experience: '4 years', skills: ['React', 'TypeScript', 'GraphQL'], location: 'Seattle', availability: '2 weeks', jobId: '1', education: 'B.S. Computer Science - UW', linkedIn: 'linkedin.com/in/jameslee', summary: 'Frontend specialist with GraphQL and TypeScript. Strong design system experience.' },
-  { id: 'c6', fullName: 'Emily Brown', email: 'emily.brown@email.com', phone: '+1 (555) 678-9012', matchScore: 90, experience: '4 years', skills: ['React', 'Python', 'AWS'], location: 'Boston', availability: 'Immediate', jobId: '2', education: 'B.S. Computer Science - Harvard', linkedIn: 'linkedin.com/in/emilybrown', summary: 'Full-stack developer with Python backend and React frontend. Startup experience.' },
-  { id: 'c7', fullName: 'Chris Taylor', email: 'chris.taylor@email.com', phone: '+1 (555) 789-0123', matchScore: 87, experience: '5 years', skills: ['Node.js', 'PostgreSQL', 'Docker'], location: 'Remote', availability: '2 weeks', jobId: '2', education: 'B.S. Computer Science - Georgia Tech', linkedIn: 'linkedin.com/in/christaylor', summary: 'Backend engineer specializing in Node.js and databases. Led team of 4 developers.' },
+  { id: 'c1', fullName: 'Alex Johnson', email: 'alex.johnson@email.com', phone: '+1 (555) 123-4567', matchScore: 95, experience: '5 years', skills: ['React', 'TypeScript', 'Node.js'], location: 'San Francisco', availability: 'Immediate', jobId: '1', education: 'B.S. Computer Science - Stanford', linkedIn: 'linkedin.com/in/alexjohnson', summary: 'Senior frontend developer with 5+ years building scalable web applications. Passionate about React ecosystem and clean code.', responseTimeHours: 2, appliedAt: '2025-03-02T10:00:00Z' },
+  { id: 'c2', fullName: 'Maria Garcia', email: 'maria.garcia@email.com', phone: '+1 (555) 234-5678', matchScore: 92, experience: '4 years', skills: ['React', 'JavaScript', 'AWS'], location: 'Remote', availability: '2 weeks', jobId: '1', education: 'M.S. Software Engineering - MIT', linkedIn: 'linkedin.com/in/mariagarcia', summary: 'Full-stack engineer with strong React and cloud experience. Led migration to serverless architecture.', responseTimeHours: 4, appliedAt: '2025-03-02T08:00:00Z' },
+  { id: 'c3', fullName: 'David Chen', email: 'david.chen@email.com', phone: '+1 (555) 345-6789', matchScore: 88, experience: '3 years', skills: ['React', 'Python', 'PostgreSQL'], location: 'New York', availability: '1 month', jobId: '1', education: 'B.S. Computer Science - Berkeley', linkedIn: 'linkedin.com/in/davidchen', summary: 'Software engineer with Python and React expertise. Experience in fintech and e-commerce.', responseTimeHours: 6, appliedAt: '2025-03-01T14:00:00Z' },
+  { id: 'c4', fullName: 'Sarah Williams', email: 'sarah.w@email.com', phone: '+1 (555) 456-7890', matchScore: 85, experience: '6 years', skills: ['Node.js', 'AWS', 'Docker'], location: 'Austin', availability: 'Immediate', jobId: '1', education: 'B.S. Computer Science - UT Austin', linkedIn: 'linkedin.com/in/sarahwilliams', summary: 'Senior backend engineer with DevOps experience. Built scalable microservices.', responseTimeHours: 12, appliedAt: '2025-03-01T09:00:00Z' },
+  { id: 'c5', fullName: 'James Lee', email: 'james.lee@email.com', phone: '+1 (555) 567-8901', matchScore: 82, experience: '4 years', skills: ['React', 'TypeScript', 'GraphQL'], location: 'Seattle', availability: '2 weeks', jobId: '1', education: 'B.S. Computer Science - UW', linkedIn: 'linkedin.com/in/jameslee', summary: 'Frontend specialist with GraphQL and TypeScript. Strong design system experience.', responseTimeHours: 24, appliedAt: '2025-02-28T16:00:00Z' },
+  { id: 'c6', fullName: 'Emily Brown', email: 'emily.brown@email.com', phone: '+1 (555) 678-9012', matchScore: 90, experience: '4 years', skills: ['React', 'Python', 'AWS'], location: 'Boston', availability: 'Immediate', jobId: '2', education: 'B.S. Computer Science - Harvard', linkedIn: 'linkedin.com/in/emilybrown', summary: 'Full-stack developer with Python backend and React frontend. Startup experience.', responseTimeHours: 3, appliedAt: '2025-03-02T11:00:00Z' },
+  { id: 'c7', fullName: 'Chris Taylor', email: 'chris.taylor@email.com', phone: '+1 (555) 789-0123', matchScore: 87, experience: '5 years', skills: ['Node.js', 'PostgreSQL', 'Docker'], location: 'Remote', availability: '2 weeks', jobId: '2', education: 'B.S. Computer Science - Georgia Tech', linkedIn: 'linkedin.com/in/christaylor', summary: 'Backend engineer specializing in Node.js and databases. Led team of 4 developers.', responseTimeHours: 8, appliedAt: '2025-03-01T12:00:00Z' },
 ];
 
 export const mockRecruiterAnalytics = {
@@ -531,6 +545,7 @@ export const mockRecruiterAnalytics = {
   interviewsScheduled: 12,
   avgTimeToHire: '14 days',
   topPerformingJob: 'Senior React Developer',
+  avgResponseTime: '6.5 hrs',
 };
 
 export const mockConversations = [

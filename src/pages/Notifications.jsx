@@ -1,9 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
+import { useLanguage } from '../context/LanguageContext';
 import './Notifications.css';
 
 export default function Notifications() {
   const { notifications, markNotificationRead } = useApp();
+  const { t } = useLanguage();
   const navigate = useNavigate();
 
   const handleNotificationClick = (notification) => {
@@ -17,6 +19,7 @@ export default function Notifications() {
 
   const getNotificationIcon = (type) => {
     switch (type) {
+      case 'smart_job_alert': return '🤖';
       case 'new_match': return '🎯';
       case 'application_update': return '📋';
       case 'recruiter_message': return '💬';
@@ -27,7 +30,7 @@ export default function Notifications() {
   return (
     <main className="notifications-page">
       <div className="notifications-container">
-        <h1>Notifications</h1>
+        <h1>{t('notifications.title')}</h1>
         <div className="notifications-list-full">
           {notifications.map((notification) => (
             <div

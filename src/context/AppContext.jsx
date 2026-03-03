@@ -1,7 +1,7 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useMemo } from 'react';
 import { mockUser, mockRecruiter, mockJobs, mockNotifications, mockProfileViewers } from '../data/mockData';
 import * as sub from '../services/subscriptionService';
-import { computeProfileStrength, computeSkillsCompatibility } from '../services/skillsService';
+import { computeProfileStrength, computeSkillsCompatibility, computeJobMatch } from '../services/skillsService';
 
 const AUTH_STORAGE_KEY = 'careersearch_auth';
 const NEWSLETTER_STORAGE_KEY = 'careersearch_newsletter';
@@ -154,6 +154,16 @@ export function AppProvider({ children }) {
 
   const getSkillsCompatibility = () => computeSkillsCompatibility(userWithSub, jobs);
 
+  // AI-powered job matching: compute match score and "Why this fits you" for candidates
+  const jobsWithMatch = useMemo(() => {
+    if (!userWithSub || userWithSub.role !== 'candidate') return jobs;
+    const userWithStrength = { ...userWithSub, profileStrength: computeProfileStrength(userWithSub) };
+    return jobs.map((job) => {
+      const { score, reason } = computeJobMatch(userWithStrength, job);
+      return { ...job, matchScore: score, matchReason: reason };
+    });
+  }, [jobs, userWithSub]);
+
   const saveJob = (jobId) => {
     if (!savedJobs.includes(jobId)) {
       setSavedJobs((prev) => [...prev, jobId]);
@@ -258,6 +268,7 @@ export function AppProvider({ children }) {
     setUser,
     updateUser,
     jobs,
+    jobsWithMatch,
     setJobs,
     notifications,
     setNotifications,

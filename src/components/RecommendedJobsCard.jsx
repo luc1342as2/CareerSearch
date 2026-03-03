@@ -2,14 +2,16 @@ import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '../context/AppContext';
+import { useLanguage } from '../context/LanguageContext';
 import './RecommendedJobsCard.css';
 
 export default function RecommendedJobsCard() {
-  const { jobs, saveJob, unsaveJob, savedJobs, isAuthenticated } = useApp();
+  const { jobsWithMatch, saveJob, unsaveJob, savedJobs, isAuthenticated } = useApp();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
   const [toast, setToast] = useState(null);
-  const recommendedJobs = jobs.slice(0, 4);
+  const recommendedJobs = jobsWithMatch.slice(0, 4);
 
   const handleSaveClick = (jobId) => {
     if (!isAuthenticated) {
@@ -18,10 +20,10 @@ export default function RecommendedJobsCard() {
     }
     if (savedJobs.includes(jobId)) {
       unsaveJob(jobId);
-      setToast({ message: 'Job removed from saved', type: 'info' });
+      setToast({ message: t('common.jobRemovedFromSaved'), type: 'info' });
     } else {
       saveJob(jobId);
-      setToast({ message: 'Job saved!', type: 'success' });
+      setToast({ message: t('common.jobSaved'), type: 'success' });
     }
     setTimeout(() => setToast(null), 2500);
   };
@@ -56,18 +58,18 @@ export default function RecommendedJobsCard() {
               <p className="location">{job.location} • {job.workType}</p>
               <div className="job-match">
                 <span className={`match-badge ${job.matchScore >= 90 ? 'high' : job.matchScore >= 75 ? 'medium' : 'low'}`}>
-                  {job.matchScore}% match
+                  {job.matchScore}% {t('jobs.match')}
                 </span>
               </div>
             </div>
             <p className="match-reason">{job.matchReason}</p>
             <div className="job-actions">
-              <Link to={`/jobs/${job.id}`} className="btn btn-primary">View Details</Link>
+              <Link to={`/jobs/${job.id}`} className="btn btn-primary">{t('common.viewDetails')}</Link>
               <button
                 className={`btn btn-secondary ${savedJobs.includes(job.id) ? 'saved' : ''}`}
                 onClick={() => handleSaveClick(job.id)}
               >
-                {!isAuthenticated ? 'Login to Save' : (savedJobs.includes(job.id) ? '✓ Saved' : 'Save')}
+                {!isAuthenticated ? t('common.loginToSave') : (savedJobs.includes(job.id) ? `✓ ${t('common.saved')}` : t('common.save'))}
               </button>
             </div>
           </motion.div>

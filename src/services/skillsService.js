@@ -62,6 +62,54 @@ export function computeSkillsCompatibility(user, jobs) {
 }
 
 /**
+ * Compute AI match score and "Why this job fits you" for a single job
+ * Uses skills, experience, and preferences from user profile
+ */
+export function computeJobMatch(user, job) {
+  if (!user || !job) return { score: 0, reason: 'Complete your profile for personalized matching' };
+  const userSkills = getSkillsFromProfile(user);
+  const jobSkills = (job.skills || []).map((s) => normalizeSkill(s).toLowerCase());
+  const profileStrength = user?.profileStrength ?? 0;
+
+  let score = 0;
+  const reasons = [];
+
+  // Skills match (up to 50 points)
+  const matchedSkills = userSkills.filter((us) =>
+    jobSkills.some((js) => js.includes(us.toLowerCase()) || us.toLowerCase().includes(js))
+  );
+  if (matchedSkills.length > 0) {
+    const skillScore = Math.min(50, matchedSkills.length * 15);
+    score += skillScore;
+    reasons.push(`Strong ${matchedSkills.slice(0, 3).join(', ')} match`);
+  }
+
+  // Experience level (up to 25 points)
+  const userYears = (user.experience || []).reduce((sum, e) => sum + (e.years || 0), 0);
+  const expMatch = job.experienceLevel && userYears >= 2;
+  if (expMatch) {
+    score += 25;
+    reasons.push(`${userYears}+ years experience aligns with requirements`);
+  }
+
+  // Work type preference (up to 15 points)
+  const preferredWork = (user.preferences?.workType || []).map((w) => w.toLowerCase());
+  const jobWork = (job.workType || '').toLowerCase();
+  if (preferredWork.some((p) => jobWork.includes(p))) {
+    score += 15;
+    reasons.push(`${job.workType} work aligns with your preferences`);
+  }
+
+  // Profile completeness bonus (up to 10 points)
+  score += Math.min(10, Math.floor(profileStrength / 10));
+
+  const finalScore = Math.min(100, Math.max(0, Math.round(score)));
+  const reason = reasons.length > 0 ? reasons.join('. ') : 'Add more skills and experience to improve your match';
+
+  return { score: finalScore, reason };
+}
+
+/**
  * Compute profile strength from completeness (CV uploaded, skills, experience, etc.)
  */
 export function computeProfileStrength(user) {
