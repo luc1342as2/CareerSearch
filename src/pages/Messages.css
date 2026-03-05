@@ -89,10 +89,36 @@
   color: var(--text-muted);
 }
 
-.conv-company {
-  font-size: 0.85rem;
-  color: var(--text-secondary);
+.conv-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
   margin: 0.25rem 0;
+}
+
+.conv-role-badge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.15rem 0.45rem;
+  border-radius: 0.25rem;
+}
+
+.conv-role-badge.recruiter {
+  background: rgba(56, 189, 248, 0.2);
+  color: #38bdf8;
+}
+
+.conv-role-badge.job-seeker {
+  background: rgba(74, 222, 128, 0.2);
+  color: #4ade80;
+}
+
+.conv-company {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
 }
 
 .conv-preview {
@@ -118,11 +144,70 @@
   border-bottom: 1px solid var(--border);
 }
 
+.chat-header-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.chat-header-name-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
 .chat-header h3 {
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--text-primary);
   margin: 0 0 0.25rem 0;
+}
+
+.chat-role-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.chat-role-badge.recruiter {
+  background: rgba(56, 189, 248, 0.2);
+  color: #38bdf8;
+}
+
+.chat-role-badge.job-seeker {
+  background: rgba(74, 222, 128, 0.2);
+  color: #4ade80;
+}
+
+.chat-header-company {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 0.15rem 0;
+}
+
+.chat-header-title {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0.1rem 0;
+}
+
+.chat-header-job {
+  font-size: 0.8rem;
+  color: var(--accent);
+  margin: 0.35rem 0 0 0;
+}
+
+.chat-header-details,
+.chat-header-profile {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.35rem;
 }
 
 .chat-header p {

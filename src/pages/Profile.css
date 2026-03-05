@@ -1,15 +1,35 @@
 .profile-page {
   flex: 1;
-  padding: 1.5rem;
+  padding: 2rem 1.5rem;
 }
 
 .profile-container {
-  max-width: 900px;
+  max-width: 720px;
   margin: 0 auto;
+}
+
+.profile-page-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.profile-page-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 0.35rem 0;
+  letter-spacing: -0.02em;
+}
+
+.profile-page-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin: 0;
 }
 
 .profile-header {
   margin-bottom: 1.5rem;
+  padding: 1.5rem;
 }
 
 .profile-header-top {
@@ -80,6 +100,52 @@
   color: white;
 }
 
+.candidate-stats {
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
+}
+
+.candidate-stats-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 1rem 0;
+}
+
+.candidate-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.candidate-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+}
+
+.candidate-stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+}
+
+.candidate-stat-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 480px) {
+  .candidate-stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .profile-premium-actions {
   margin-top: 1rem;
   display: flex;
@@ -115,33 +181,43 @@
   margin-top: 1.5rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--border);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .improve-suggestions h3 {
   font-size: 0.95rem;
   color: var(--text-secondary);
-  margin: 0 0 0.75rem 0;
+  margin: 0 0 1rem 0;
+  text-align: center;
 }
 
 .improve-suggestions ul {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 480px;
 }
 
 .improve-suggestions li {
   padding: 0.5rem 0;
-  padding-left: 1.25rem;
   color: var(--text-secondary);
   font-size: 0.9rem;
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .improve-suggestions li::before {
   content: '→';
-  position: absolute;
-  left: 0;
   color: var(--accent);
+  flex-shrink: 0;
 }
 
 .profile-sections {
@@ -167,7 +243,11 @@
 .profile-section li {
   color: var(--text-secondary);
   font-size: 0.95rem;
-  line-height: 1.5;
+  line-height: 1.6;
+}
+
+.profile-section .skills-list h3:first-of-type {
+  margin-top: 0;
 }
 
 .info-grid {
@@ -192,6 +272,186 @@
   color: var(--text-primary);
 }
 
+.profile-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 0.5rem;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.profile-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.profile-input-full {
+  width: 100%;
+}
+
+.profile-input-narrow {
+  width: 80px;
+}
+
+.profile-add-btn,
+.profile-remove-btn {
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.375rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: none;
+}
+
+.profile-add-btn {
+  background: var(--accent-bg);
+  color: var(--accent);
+  border: 1px solid var(--input-border);
+  margin-top: 0.5rem;
+}
+
+.profile-add-btn:hover {
+  background: var(--accent);
+  color: white;
+}
+
+.profile-remove-btn {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  flex-shrink: 0;
+}
+
+.profile-remove-btn:hover {
+  background: rgba(239, 68, 68, 0.3);
+}
+
+.experience-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.experience-edit-block {
+  padding: 1rem;
+  background: var(--input-bg);
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.profile-textarea {
+  resize: vertical;
+  min-height: 72px;
+}
+
+.experience-edit-item {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.experience-edit-item .profile-input {
+  flex: 1;
+  min-width: 120px;
+}
+
+.experience-edit-item .profile-input-narrow {
+  flex: 0 0 60px;
+}
+
+.certifications-edit {
+  margin-top: 0.5rem;
+}
+
+.preferences-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.pref-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.pref-row label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.pref-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.pref-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.pref-checkbox input {
+  accent-color: var(--accent);
+}
+
+.portfolio-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.portfolio-links-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.portfolio-link-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.portfolio-link-row label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.portfolio-projects-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.portfolio-project-edit-item {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding: 1rem;
+  background: var(--input-bg);
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+}
+
+.portfolio-project-edit-item .profile-input {
+  flex: 1;
+  min-width: 140px;
+}
+
+.portfolio-project-edit-item .profile-remove-btn {
+  margin-top: 0.25rem;
+}
+
 .experience-list,
 .preferences-list {
   list-style: none;
@@ -199,7 +459,39 @@
   margin: 0;
 }
 
-.experience-list li,
+.experience-item {
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.experience-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.experience-header {
+  margin-bottom: 0.5rem;
+}
+
+.experience-header strong {
+  display: block;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.experience-meta {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.experience-description {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  padding-left: 0;
+}
+
 .preferences-list li {
   padding: 0.5rem 0;
   border-bottom: 1px solid var(--border);
@@ -363,9 +655,10 @@
 }
 
 .portfolio-links h3 {
-  font-size: 0.95rem;
-  margin: 0 0 0.75rem;
+  font-size: 0.9rem;
+  margin: 1rem 0 0.75rem;
   color: var(--text-secondary);
+  text-align: center;
 }
 
 .portfolio-links {

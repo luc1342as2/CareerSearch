@@ -1,0 +1,144 @@
+.recruiter-job-post-page {
+  flex: 1;
+  padding: 1.5rem;
+}
+
+.recruiter-job-post-container {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.recruiter-job-post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.recruiter-job-post-back {
+  color: var(--accent);
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+.recruiter-job-post-back:hover {
+  text-decoration: underline;
+}
+
+.recruiter-job-post-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.recruiter-job-post-actions .btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+}
+
+.recruiter-job-post-actions .btn-primary {
+  background: var(--gradient-accent);
+  color: white;
+}
+
+.recruiter-job-post-actions .btn-secondary {
+  background: var(--input-bg);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.recruiter-job-post-actions .btn-danger {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.recruiter-job-post-card {
+  padding: 2rem;
+  border-radius: 0.75rem;
+}
+
+.recruiter-job-post-meta {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.recruiter-job-post-status {
+  text-transform: capitalize;
+  font-weight: 600;
+  color: var(--success-color);
+}
+
+.recruiter-job-post-card h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem 0;
+}
+
+.recruiter-job-post-company {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin: 0 0 1rem 0;
+}
+
+.recruiter-job-post-stats {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.recruiter-job-post-details {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.recruiter-job-post-details p {
+  margin: 0.5rem 0;
+}
+
+.recruiter-job-post-details strong {
+  color: var(--text-primary);
+  margin-right: 0.5rem;
+}
+
+.recruiter-job-post-form .form-row {
+  margin-bottom: 1.25rem;
+}
+
+.recruiter-job-post-form .form-row label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.recruiter-job-post-form .form-row input,
+.recruiter-job-post-form .form-row textarea,
+.recruiter-job-post-form .form-row select {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 0.5rem;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.recruiter-job-post-form .form-row-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}

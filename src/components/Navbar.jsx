@@ -28,6 +28,7 @@ export default function Navbar() {
       <li><NavLink to="/messages" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} onClick={() => setMobileOpen(false)}>{t('nav.messages')}</NavLink></li>
       {isRecruiter && <li><NavLink to="/recruiter" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} onClick={() => setMobileOpen(false)}>{t('nav.recruiter')}</NavLink></li>}
       <li><NavLink to="/blog" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} onClick={() => setMobileOpen(false)}>{t('nav.blog')}</NavLink></li>
+      <li><NavLink to="/roadmap" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} onClick={() => setMobileOpen(false)}>{t('nav.roadmap')}</NavLink></li>
       <li><NavLink to="/pricing" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} onClick={() => setMobileOpen(false)}>{t('nav.pricing')}</NavLink></li>
       <li><NavLink to="/account" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} onClick={() => setMobileOpen(false)}>{t('nav.account')}</NavLink></li>
       {isAuthenticated ? (

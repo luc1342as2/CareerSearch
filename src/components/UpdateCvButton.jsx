@@ -3,13 +3,10 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '../context/AppContext';
 import { useLanguage } from '../context/LanguageContext';
+import { extractTextFromPDF, extractSkillsFromText } from '../utils/cvParser';
 import './UpdateCvButton.css';
 
-function extractSkillsFromCV(file, user) {
-  if (user?.skills?.length) return {};
-  const commonSkills = ['JavaScript', 'React', 'TypeScript', 'Node.js', 'Python', 'SQL', 'HTML', 'CSS'];
-  return { skills: commonSkills };
-}
+const DEFAULT_SKILLS = ['JavaScript', 'React', 'TypeScript', 'Node.js', 'Python', 'SQL', 'HTML', 'CSS'];
 
 export default function UpdateCvButton({ variant = 'full' }) {
   const { user, updateUser, isAuthenticated } = useApp();
@@ -29,7 +26,7 @@ export default function UpdateCvButton({ variant = 'full' }) {
     setTimeout(() => setToast(null), 3000);
   };
 
-  const handleCvSelect = (e) => {
+  const handleCvSelect = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
     if (file.type !== 'application/pdf') {
@@ -37,14 +34,22 @@ export default function UpdateCvButton({ variant = 'full' }) {
       return;
     }
     setUploading(true);
-    setTimeout(() => {
-      const extractedSkills = extractSkillsFromCV(file, user);
-      updateUser({ cvUploaded: true, ...extractedSkills });
-      setUploading(false);
+    try {
+      const text = await extractTextFromPDF(file);
+      const extracted = extractSkillsFromText(text);
+      const skills = extracted.length > 0 ? extracted : DEFAULT_SKILLS;
+      const existing = new Set((user?.skills || []).map((s) => String(s).trim()));
+      const merged = [...existing, ...skills.filter((s) => !existing.has(s))];
+      updateUser({ cvUploaded: true, skills: merged });
       setShowModal(false);
       showToast(t('cv.cvUploaded'));
+    } catch (err) {
+      showToast(t('cv.errPdfOnly') || 'Failed to parse PDF', 'error');
+      updateUser({ cvUploaded: true, skills: user?.skills || DEFAULT_SKILLS });
+    } finally {
+      setUploading(false);
       e.target.value = '';
-    }, 800);
+    }
   };
 
   const handleVideoFileSelect = (e) => {

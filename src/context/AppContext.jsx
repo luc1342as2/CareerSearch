@@ -1,10 +1,11 @@
 import { createContext, useContext, useState, useEffect, useMemo } from 'react';
-import { mockUser, mockRecruiter, mockJobs, mockNotifications, mockProfileViewers } from '../data/mockData';
+import { mockUser, mockRecruiter, mockJobs, mockNotifications, mockProfileViewers, mockPostedJobs } from '../data/mockData';
 import * as sub from '../services/subscriptionService';
 import { computeProfileStrength, computeSkillsCompatibility, computeJobMatch } from '../services/skillsService';
 
 const AUTH_STORAGE_KEY = 'careersearch_auth';
 const NEWSLETTER_STORAGE_KEY = 'careersearch_newsletter';
+const POSTED_JOBS_STORAGE_KEY = 'careersearch_posted_jobs';
 
 const getStoredAuth = () => {
   try {
@@ -39,6 +40,16 @@ export function AppProvider({ children }) {
   const [shortlistedCandidates, setShortlistedCandidates] = useState([]);
   const [invitedCandidates, setInvitedCandidates] = useState([]);
   const [profileViewers, setProfileViewers] = useState(mockProfileViewers);
+  const [postedJobs, setPostedJobs] = useState(() => {
+    try {
+      const stored = localStorage.getItem(POSTED_JOBS_STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch (e) {}
+    return mockPostedJobs;
+  });
 
   const isAuthenticated = !!currentUser;
 
@@ -101,22 +112,17 @@ export function AppProvider({ children }) {
     const isRecruiter = role === 'recruiter';
     const newUser = isRecruiter
       ? {
-          id: `user-${Date.now()}`,
-          fullName: fullName || 'Recruiter',
-          email: normalizedEmail,
-          company: fullName || 'Company',
-          role: 'recruiter',
           ...mockRecruiter,
+          id: `user-${Date.now()}`,
+          role: 'recruiter',
           fullName: fullName || 'Recruiter',
           email: normalizedEmail,
           company: fullName || 'Company',
         }
       : {
-          id: `user-${Date.now()}`,
-          fullName: fullName || 'New User',
-          email: normalizedEmail,
-          role: 'candidate',
           ...mockUser,
+          id: `user-${Date.now()}`,
+          role: 'candidate',
           fullName: fullName || 'New User',
           email: normalizedEmail,
         };
@@ -145,8 +151,11 @@ export function AppProvider({ children }) {
   const updateUser = (updates) => {
     setUser((prev) => {
       const next = { ...prev, ...updates };
-      if (updates.cvUploaded || updates.skills || updates.experience) {
-        next.profileStrength = computeProfileStrength(next);
+      next.profileStrength = computeProfileStrength(next);
+      if (currentUser && currentUser.id === prev.id) {
+        const merged = { ...currentUser, ...next };
+        setCurrentUser(merged);
+        storeAuth(merged);
       }
       return next;
     });
@@ -233,6 +242,46 @@ export function AppProvider({ children }) {
   const canAccessCandidate = (index) => sub.canAccessCandidate(userWithSub, index, 999);
   const useAIFiltering = (filters) => sub.useAIFiltering(userWithSub, filters);
 
+  useEffect(() => {
+    try {
+      localStorage.setItem(POSTED_JOBS_STORAGE_KEY, JSON.stringify(postedJobs));
+    } catch (e) {}
+  }, [postedJobs]);
+
+  const addPostedJob = (jobData) => {
+    const id = `job-${Date.now()}`;
+    const newJob = {
+      id,
+      title: jobData.title || 'New Job',
+      company: jobData.company || user?.company || 'Company',
+      applicants: 0,
+      views: 0,
+      status: 'active',
+      postedDate: new Date().toISOString().slice(0, 10),
+      location: jobData.location || 'Remote',
+      salaryRange: jobData.salaryRange || { min: 80000, max: 120000 },
+      skills: jobData.skills || [],
+      description: jobData.description || '',
+      benefits: jobData.benefits || [],
+      workType: jobData.workType || 'Remote',
+      employmentType: jobData.employmentType || 'Full-time',
+      deadline: jobData.deadline || '',
+      industry: jobData.industry || 'Technology',
+    };
+    setPostedJobs((prev) => [newJob, ...prev]);
+    return newJob;
+  };
+
+  const updatePostedJob = (jobId, updates) => {
+    setPostedJobs((prev) =>
+      prev.map((j) => (j.id === jobId ? { ...j, ...updates } : j))
+    );
+  };
+
+  const removePostedJob = (jobId) => {
+    setPostedJobs((prev) => prev.filter((j) => j.id !== jobId));
+  };
+
   const subscribeToNewsletter = (email) => {
     try {
       const stored = JSON.parse(localStorage.getItem(NEWSLETTER_STORAGE_KEY) || '[]');
@@ -302,6 +351,10 @@ export function AppProvider({ children }) {
     canAccessCandidate,
     useAIFiltering,
     getSkillsCompatibility,
+    postedJobs,
+    addPostedJob,
+    updatePostedJob,
+    removePostedJob,
     subscribeToNewsletter,
     isNewsletterSubscribed,
   };

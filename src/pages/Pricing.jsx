@@ -9,13 +9,13 @@ const scrollToSection = (id) => {
 };
 
 const platformPillars = [
-  { icon: '🤖', label: 'AI-driven' },
-  { icon: '📈', label: 'Scalable' },
-  { icon: '🔒', label: 'Secure' },
-  { icon: '🌐', label: 'Multi-language' },
-  { icon: '📱', label: 'Mobile-first' },
-  { icon: '📊', label: 'Data-driven' },
-  { icon: '💳', label: 'Subscription-based' },
+  { icon: '🤖', key: 'aiDriven' },
+  { icon: '📈', key: 'scalable' },
+  { icon: '🔒', key: 'secure' },
+  { icon: '🌐', key: 'multilang' },
+  { icon: '📱', key: 'mobileFirst' },
+  { icon: '📊', key: 'dataDriven' },
+  { icon: '💳', key: 'subscriptionBased' },
 ];
 
 export default function Pricing() {
@@ -59,9 +59,9 @@ export default function Pricing() {
           <h2>{t('pricing.ourPlatform')}</h2>
           <div className="pillars-grid">
             {platformPillars.map((pillar) => (
-              <div key={pillar.label} className="pillar-item">
+              <div key={pillar.key} className="pillar-item">
                 <span className="pillar-icon">{pillar.icon}</span>
-                <span className="pillar-label">{pillar.label}</span>
+                <span className="pillar-label">{t(`pricing.${pillar.key}`)}</span>
               </div>
             ))}
           </div>
@@ -76,20 +76,16 @@ export default function Pricing() {
               <p className="plan-desc">{t('pricing.accelerateSearch')}</p>
               <ul className="plan-features">
                 <li>
-                  <span>Advanced AI insights</span>
-                  <button type="button" className="feature-learn-btn" onClick={() => scrollToSection('detail-ai-insights')}>{t('pricing.learnMore')}</button>
-                </li>
-                <li>
-                  <span>Unlimited video CV</span>
-                  <button type="button" className="feature-learn-btn" onClick={() => scrollToSection('detail-video-cv')}>{t('pricing.learnMore')}</button>
-                </li>
-                <li>
-                  <span>See who viewed your profile</span>
+                  <span>{t('pricing.candidateSeeViewers')}</span>
                   <button type="button" className="feature-learn-btn" onClick={() => scrollToSection('detail-profile-viewers')}>{t('pricing.learnMore')}</button>
                 </li>
                 <li>
-                  <span>Profile boost</span>
+                  <span>{t('pricing.candidateBoostProfile')}</span>
                   <button type="button" className="feature-learn-btn" onClick={() => scrollToSection('detail-profile-boost')}>{t('pricing.learnMore')}</button>
+                </li>
+                <li>
+                  <span>{t('pricing.candidateUnlimitedApps')}</span>
+                  <button type="button" className="feature-learn-btn" onClick={() => scrollToSection('detail-unlimited-apps')}>{t('pricing.learnMore')}</button>
                 </li>
               </ul>
               <Link to="/account" className="plan-cta">{t('pricing.upgradePremium')}</Link>
@@ -101,24 +97,28 @@ export default function Pricing() {
               <p className="plan-desc">{t('pricing.findTalent')}</p>
               <ul className="plan-features">
                 <li>
-                  <span>AI filtering tools</span>
+                  <span>{t('pricing.recruiterAiFilters')}</span>
                   <button type="button" className="feature-learn-btn" onClick={() => scrollToSection('detail-ai-filtering')}>{t('pricing.learnMore')}</button>
                 </li>
                 <li>
-                  <span>Unlimited candidate access</span>
-                  <button type="button" className="feature-learn-btn" onClick={() => scrollToSection('detail-unlimited-candidates')}>{t('pricing.learnMore')}</button>
-                </li>
-                <li>
-                  <span>Featured job posts</span>
+                  <span>{t('pricing.recruiterFeaturedPosts')}</span>
                   <button type="button" className="feature-learn-btn" onClick={() => scrollToSection('detail-featured-posts')}>{t('pricing.learnMore')}</button>
                 </li>
                 <li>
-                  <span>Priority support</span>
-                  <button type="button" className="feature-learn-btn" onClick={() => scrollToSection('detail-priority-support')}>{t('pricing.learnMore')}</button>
+                  <span>{t('pricing.recruiterAdvancedAnalytics')}</span>
+                  <button type="button" className="feature-learn-btn" onClick={() => scrollToSection('detail-advanced-analytics')}>{t('pricing.learnMore')}</button>
                 </li>
               </ul>
               <Link to="/recruiter" className="plan-cta">{t('pricing.getRecruiterAccess')}</Link>
             </div>
+          </div>
+        </section>
+
+        <section className="stripe-integration card">
+          <h2>{t('pricing.stripeIntegration')}</h2>
+          <div className="stripe-content">
+            <span className="stripe-icon">💳</span>
+            <p>{t('pricing.stripeDescription')}</p>
           </div>
         </section>
 
@@ -137,8 +137,8 @@ export default function Pricing() {
             <div className="revenue-item">
               <span className="revenue-icon">🎓</span>
               <div className="revenue-item-content">
-                <h4>University Partnerships</h4>
-                <p>Connect graduates with employers</p>
+                <h4>{t('pricing.universityPartnerships')}</h4>
+                <p>{t('pricing.universityPartnershipsDesc')}</p>
                 <button className="revenue-learn-btn" onClick={() => scrollToSection('detail-university')}>{t('pricing.learnMore')}</button>
               </div>
               <button className="revenue-action-btn" onClick={handleUniversity} title={t('pricing.try')}>{t('pricing.try')}</button>
@@ -155,8 +155,8 @@ export default function Pricing() {
             <div className="revenue-item">
               <span className="revenue-icon">🏢</span>
               <div className="revenue-item-content">
-                <h4>Corporate HR Packages</h4>
-                <p>Enterprise solutions from $299/mo</p>
+                <h4>{t('pricing.corporateHRPackages')}</h4>
+                <p>{t('pricing.corporateHRPackagesDesc')}</p>
                 <button className="revenue-learn-btn" onClick={() => scrollToSection('detail-corporate')}>{t('pricing.learnMore')}</button>
               </div>
               <button className="revenue-action-btn" onClick={handleCorporate} title={t('pricing.try')}>{t('pricing.try')}</button>
@@ -171,73 +171,81 @@ export default function Pricing() {
           <h2>{t('pricing.learnMore')}</h2>
           <div className="details-grid">
             <article id="detail-paid-postings" className="detail-card card">
-              <h3>📋 Paid Job Postings</h3>
-              <p>Featured listings put your job at the top of search results and in the AI Recommended section. Each posting costs $49 and includes:</p>
+              <h3>📋 {t('pricing.detailPaidTitle')}</h3>
+              <p>{t('pricing.detailPaidIntro')}</p>
               <ul>
-                <li>30-day visibility</li>
-                <li>Highlighted in candidate feeds</li>
-                <li>Priority in AI matching</li>
+                <li>{t('pricing.detailPaid1')}</li>
+                <li>{t('pricing.detailPaid2')}</li>
+                <li>{t('pricing.detailPaid3')}</li>
               </ul>
             </article>
             <article id="detail-university" className="detail-card card">
-              <h3>🎓 University Partnerships</h3>
-              <p>Partner with universities to connect graduates with employers. We offer:</p>
+              <h3>🎓 {t('pricing.detailUniTitle')}</h3>
+              <p>{t('pricing.detailUniIntro')}</p>
               <ul>
-                <li>Dedicated campus recruitment portals</li>
-                <li>Career fair integration</li>
-                <li>Graduate talent pools</li>
+                <li>{t('pricing.detailUni1')}</li>
+                <li>{t('pricing.detailUni2')}</li>
+                <li>{t('pricing.detailUni3')}</li>
               </ul>
             </article>
             <article id="detail-sponsored" className="detail-card card">
-              <h3>⭐ Sponsored Listings</h3>
-              <p>Premium placement for your job posts. $15/day gets you:</p>
+              <h3>⭐ {t('pricing.detailSponsoredTitle')}</h3>
+              <p>{t('pricing.detailSponsoredIntro')}</p>
               <ul>
-                <li>Top-of-page placement</li>
-                <li>Extended visibility period</li>
-                <li>Higher engagement metrics</li>
+                <li>{t('pricing.detailSponsored1')}</li>
+                <li>{t('pricing.detailSponsored2')}</li>
+                <li>{t('pricing.detailSponsored3')}</li>
               </ul>
             </article>
             <article id="detail-corporate" className="detail-card card">
-              <h3>🏢 Corporate HR Packages</h3>
-              <p>Enterprise solutions from $299/mo. Includes:</p>
+              <h3>🏢 {t('pricing.detailCorporateTitle')}</h3>
+              <p>{t('pricing.detailCorporateIntro')}</p>
               <ul>
-                <li>Unlimited job postings</li>
-                <li>Dedicated account manager</li>
-                <li>Bulk candidate access</li>
-                <li>Custom integrations</li>
+                <li>{t('pricing.detailCorporate1')}</li>
+                <li>{t('pricing.detailCorporate2')}</li>
+                <li>{t('pricing.detailCorporate3')}</li>
+                <li>{t('pricing.detailCorporate4')}</li>
               </ul>
             </article>
             <article id="detail-ai-insights" className="detail-card card">
-              <h3>🤖 Advanced AI Insights</h3>
-              <p>Get personalized analysis of your job matches: skill gaps, salary benchmarks, interview likelihood, and competitor analysis.</p>
+              <h3>🤖 {t('pricing.detailAiInsightsTitle')}</h3>
+              <p>{t('pricing.detailAiInsights')}</p>
             </article>
             <article id="detail-video-cv" className="detail-card card">
-              <h3>🎬 Unlimited Video CV</h3>
-              <p>Upload multiple video introductions to stand out. Free plan allows 1 video; Premium unlocks unlimited uploads.</p>
+              <h3>🎬 {t('pricing.detailVideoCvTitle')}</h3>
+              <p>{t('pricing.detailVideoCv')}</p>
             </article>
             <article id="detail-profile-viewers" className="detail-card card">
-              <h3>👁️ See Who Viewed Your Profile</h3>
-              <p>Discover which recruiters and companies have viewed your profile. Use this to follow up and prioritize applications.</p>
+              <h3>👁️ {t('pricing.detailProfileViewersTitle')}</h3>
+              <p>{t('pricing.detailProfileViewers')}</p>
             </article>
             <article id="detail-profile-boost" className="detail-card card">
-              <h3>📈 Profile Boost</h3>
-              <p>Get your profile featured in recruiter searches for 7 days. Increases visibility and application chances.</p>
+              <h3>📈 {t('pricing.detailProfileBoostTitle')}</h3>
+              <p>{t('pricing.detailProfileBoost')}</p>
             </article>
             <article id="detail-ai-filtering" className="detail-card card">
-              <h3>🔍 AI Filtering Tools</h3>
-              <p>Use AI to filter candidates by skills, experience, and fit. Save time and find the best talent faster.</p>
+              <h3>🔍 {t('pricing.detailAiFilteringTitle')}</h3>
+              <p>{t('pricing.detailAiFiltering')}</p>
             </article>
             <article id="detail-unlimited-candidates" className="detail-card card">
-              <h3>👥 Unlimited Candidate Access</h3>
-              <p>View and contact unlimited candidates. No per-profile fees or access caps.</p>
+              <h3>👥 {t('pricing.detailUnlimitedCandidatesTitle')}</h3>
+              <p>{t('pricing.detailUnlimitedCandidates')}</p>
             </article>
             <article id="detail-featured-posts" className="detail-card card">
-              <h3>📌 Featured Job Posts</h3>
-              <p>Your job posts appear in featured sections and get higher placement in search results.</p>
+              <h3>📌 {t('pricing.detailFeaturedPostsTitle')}</h3>
+              <p>{t('pricing.detailFeaturedPosts')}</p>
             </article>
             <article id="detail-priority-support" className="detail-card card">
-              <h3>⚡ Priority Support</h3>
-              <p>Get faster responses from our support team. Dedicated channel for urgent issues.</p>
+              <h3>⚡ {t('pricing.detailPrioritySupportTitle')}</h3>
+              <p>{t('pricing.detailPrioritySupport')}</p>
+            </article>
+            <article id="detail-unlimited-apps" className="detail-card card">
+              <h3>📤 {t('pricing.detailUnlimitedAppsTitle')}</h3>
+              <p>{t('pricing.detailUnlimitedApps')}</p>
+            </article>
+            <article id="detail-advanced-analytics" className="detail-card card">
+              <h3>📊 {t('pricing.detailAdvancedAnalyticsTitle')}</h3>
+              <p>{t('pricing.detailAdvancedAnalytics')}</p>
             </article>
           </div>
         </section>

@@ -4,78 +4,79 @@ import './Legal.css';
 
 export default function Privacy() {
   const { t } = useLanguage();
+  const privacyEmail = <a href="mailto:privacy@careersearch.com">privacy@careersearch.com</a>;
   return (
     <main className="legal-page">
       <div className="legal-container">
         <Link to="/" className="legal-back">← {t('legal.backToHome')}</Link>
         <header className="legal-header">
           <h1>{t('legal.privacyTitle')}</h1>
-          <p className="legal-updated">Last updated: March 3, 2025</p>
+          <p className="legal-updated">{t('legal.lastUpdated')}: {t('legal.lastUpdatedDate')}</p>
         </header>
 
         <div className="legal-content card">
           <section>
-            <h2>1. Introduction</h2>
-            <p>CareerSearch ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our AI-powered job matching platform.</p>
+            <h2>{t('legal.privacy.introTitle')}</h2>
+            <p>{t('legal.privacy.introContent')}</p>
           </section>
 
           <section>
-            <h2>2. Information We Collect</h2>
-            <h3>Personal Information</h3>
+            <h2>{t('legal.privacy.collectTitle')}</h2>
+            <h3>{t('legal.privacy.personalTitle')}</h3>
             <ul>
-              <li>Name, email address, phone number, and location</li>
-              <li>CV/resume, video CV, and portfolio links</li>
-              <li>Skills, work experience, education, and certifications</li>
-              <li>Job preferences (salary range, work type, preferred locations)</li>
+              <li>{t('legal.privacy.personal1')}</li>
+              <li>{t('legal.privacy.personal2')}</li>
+              <li>{t('legal.privacy.personal3')}</li>
+              <li>{t('legal.privacy.personal4')}</li>
             </ul>
-            <h3>Usage Data</h3>
+            <h3>{t('legal.privacy.usageTitle')}</h3>
             <ul>
-              <li>Profile views, job applications, and saved jobs</li>
-              <li>Match scores and AI interaction data</li>
-              <li>Device information and IP address</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2>3. How We Use Your Information</h2>
-            <ul>
-              <li>AI job matching and personalized recommendations</li>
-              <li>Connecting candidates with recruiters</li>
-              <li>Improving our matching algorithms</li>
-              <li>Sending notifications about job matches and applications</li>
-              <li>Analytics and platform improvement</li>
-              <li>Compliance with legal obligations</li>
+              <li>{t('legal.privacy.usage1')}</li>
+              <li>{t('legal.privacy.usage2')}</li>
+              <li>{t('legal.privacy.usage3')}</li>
             </ul>
           </section>
 
           <section>
-            <h2>4. Data Security</h2>
-            <p>We implement industry-standard security measures including encryption for CV and message storage, GDPR compliance, and regular security audits. Your data is stored on secure servers with access controls.</p>
-          </section>
-
-          <section>
-            <h2>5. Your Rights (GDPR)</h2>
-            <p>If you are in the European Economic Area, you have the right to:</p>
+            <h2>{t('legal.privacy.useTitle')}</h2>
             <ul>
-              <li>Access your personal data</li>
-              <li>Rectify inaccurate data</li>
-              <li>Request erasure ("right to be forgotten")</li>
-              <li>Restrict processing</li>
-              <li>Data portability</li>
-              <li>Object to processing</li>
-              <li>Withdraw consent</li>
+              <li>{t('legal.privacy.use1')}</li>
+              <li>{t('legal.privacy.use2')}</li>
+              <li>{t('legal.privacy.use3')}</li>
+              <li>{t('legal.privacy.use4')}</li>
+              <li>{t('legal.privacy.use5')}</li>
+              <li>{t('legal.privacy.use6')}</li>
             </ul>
-            <p>Contact us at <a href="mailto:privacy@careersearch.com">privacy@careersearch.com</a> to exercise these rights.</p>
           </section>
 
           <section>
-            <h2>6. Cookies and Tracking</h2>
-            <p>We use essential cookies for authentication and session management. Optional analytics cookies help us improve the platform. You can manage cookie preferences in your account settings.</p>
+            <h2>{t('legal.privacy.securityTitle')}</h2>
+            <p>{t('legal.privacy.securityContent')}</p>
           </section>
 
           <section>
-            <h2>7. Contact Us</h2>
-            <p>For privacy-related inquiries: <a href="mailto:privacy@careersearch.com">privacy@careersearch.com</a></p>
+            <h2>{t('legal.privacy.rightsTitle')}</h2>
+            <p>{t('legal.privacy.rightsIntro')}</p>
+            <ul>
+              <li>{t('legal.privacy.rights1')}</li>
+              <li>{t('legal.privacy.rights2')}</li>
+              <li>{t('legal.privacy.rights3')}</li>
+              <li>{t('legal.privacy.rights4')}</li>
+              <li>{t('legal.privacy.rights5')}</li>
+              <li>{t('legal.privacy.rights6')}</li>
+              <li>{t('legal.privacy.rights7')}</li>
+            </ul>
+            <p>{t('legal.privacy.rightsContactBefore')} {privacyEmail} {t('legal.privacy.rightsContactAfter')}</p>
+          </section>
+
+          <section>
+            <h2>{t('legal.privacy.cookiesTitle')}</h2>
+            <p>{t('legal.privacy.cookiesContent')}</p>
+          </section>
+
+          <section>
+            <h2>{t('legal.privacy.contactTitle')}</h2>
+            <p>{t('legal.privacy.contactContent')} {privacyEmail}</p>
           </section>
         </div>
       </div>

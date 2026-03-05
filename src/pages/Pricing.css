@@ -213,6 +213,38 @@
   background: linear-gradient(135deg, #818cf8, #a78bfa);
 }
 
+/* Stripe integration */
+.stripe-integration {
+  width: 100%;
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.stripe-integration h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #f8fafc;
+  margin: 0 0 1rem 0;
+}
+
+.stripe-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.stripe-icon {
+  font-size: 2rem;
+}
+
+.stripe-content p {
+  color: #94a3b8;
+  font-size: 1rem;
+  margin: 0;
+}
+
 /* Additional revenue */
 .additional-revenue {
   position: relative;

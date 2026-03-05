@@ -10,6 +10,8 @@ export default function Footer() {
         <div className="footer-links">
           <Link to="/blog">{t('footer.blog')}</Link>
           <span className="footer-divider">•</span>
+          <Link to="/roadmap">{t('footer.roadmap')}</Link>
+          <span className="footer-divider">•</span>
           <Link to="/pricing">{t('footer.pricing')}</Link>
           <span className="footer-divider">•</span>
           <Link to="/privacy">{t('footer.privacy')}</Link>

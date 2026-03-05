@@ -86,7 +86,12 @@ export default function Messages() {
                     <span className="conv-name">{conv.name}</span>
                     <span className="conv-time">{conv.time}</span>
                   </div>
-                  <p className="conv-company">{conv.company}</p>
+                  <div className="conv-meta">
+                    <span className={`conv-role-badge ${conv.role === 'recruiter' ? 'recruiter' : 'job-seeker'}`}>
+                      {conv.role === 'recruiter' ? t('messages.recruiter') : t('messages.jobSeeker')}
+                    </span>
+                    <span className="conv-company">{conv.company}</span>
+                  </div>
                   <p className="conv-preview">{conv.lastMessage}</p>
                 </div>
               </div>
@@ -98,9 +103,32 @@ export default function Messages() {
           {selectedChat ? (
             <>
               <div className="chat-header">
-                <div>
-                  <h3>{currentConv?.name}</h3>
-                  <p>{currentConv?.company}</p>
+                <div className="chat-header-main">
+                  <div>
+                    <div className="chat-header-name-row">
+                      <h3>{currentConv?.name}</h3>
+                      <span className={`chat-role-badge ${currentConv?.role === 'recruiter' ? 'recruiter' : 'job-seeker'}`}>
+                        {currentConv?.role === 'recruiter' ? t('messages.recruiter') : t('messages.jobSeeker')}
+                      </span>
+                    </div>
+                    <p className="chat-header-company">{currentConv?.company}</p>
+                    {currentConv?.title && <p className="chat-header-title">{currentConv.title}</p>}
+                    {(currentConv?.location || currentConv?.experience) && (
+                      <div className="chat-header-details">
+                        {currentConv?.location && <span>📍 {currentConv.location}</span>}
+                        {currentConv?.experience && <span>💼 {currentConv.experience}</span>}
+                      </div>
+                    )}
+                    {currentConv?.jobTitle && currentConv?.role === 'recruiter' && (
+                      <p className="chat-header-job">{t('messages.re')} {currentConv.jobTitle}</p>
+                    )}
+                    {(currentConv?.skills || currentConv?.education) && currentConv?.role === 'jobSeeker' && (
+                      <div className="chat-header-profile">
+                        {currentConv?.skills?.length > 0 && <span>{t('messages.skillsLabel')} {currentConv.skills.slice(0, 3).join(', ')}</span>}
+                        {currentConv?.education && <span>🎓 {currentConv.education}</span>}
+                      </div>
+                    )}
+                  </div>
                 </div>
                 <button
                   className="schedule-meeting-btn"
@@ -163,8 +191,8 @@ export default function Messages() {
           ) : (
             <div className="chat-placeholder">
               <div className="placeholder-icon">💬</div>
-              <p>Select a conversation to start messaging</p>
-              <span>Send messages, share files, and schedule meetings</span>
+              <p>{t('messages.selectConversation')}</p>
+              <span>{t('messages.sendMessagesShare')}</span>
             </div>
           )}
         </section>

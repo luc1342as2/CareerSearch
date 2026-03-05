@@ -12,7 +12,20 @@ export const mockRecruiter = {
   profileVisibility: 'public',
   skills: [],
   softSkills: [],
-  experience: [],
+  experience: [
+    {
+      title: 'Senior Talent Acquisition Partner',
+      company: 'TechFlow Inc',
+      years: 5,
+      description: 'Manage full-cycle recruiting for engineering and product roles. Built partnerships with 12 universities for early-career hiring. Reduced time-to-fill by 25% through process improvements. Led diversity initiatives that increased underrepresented hires by 40%.',
+    },
+    {
+      title: 'Technical Recruiter',
+      company: 'ScaleUp Labs',
+      years: 3,
+      description: 'Sourced and placed 80+ software engineers across startups. Developed technical assessment framework. Partnered with hiring managers to define role requirements and interview processes.',
+    },
+  ],
   education: 'B.S. Business - UCLA',
   certifications: ['SHRM Certified'],
   preferences: { salaryRange: { min: 0, max: 0 }, workType: [], employmentType: '', preferredCountries: [] },
@@ -38,8 +51,18 @@ export const mockUser = {
   skills: ['React', 'JavaScript', 'Node.js', 'TypeScript', 'Python', 'AWS'],
   softSkills: ['Communication', 'Problem Solving', 'Teamwork', 'Leadership'],
   experience: [
-    { title: 'Senior Frontend Developer', company: 'TechCorp', years: 3 },
-    { title: 'Frontend Developer', company: 'StartupXYZ', years: 2 },
+    {
+      title: 'Senior Frontend Developer',
+      company: 'TechCorp',
+      years: 3,
+      description: 'Led development of customer-facing web applications serving 2M+ monthly users. Architected component library adopted across 5 product teams. Mentored 3 junior developers and established code review standards. Reduced page load time by 40% through performance optimization.',
+    },
+    {
+      title: 'Frontend Developer',
+      company: 'StartupXYZ',
+      years: 2,
+      description: 'Built responsive dashboards and data visualization tools using React and D3.js. Collaborated with product and design teams in agile sprints. Implemented A/B testing framework that increased conversion by 18%.',
+    },
   ],
   education: 'B.S. Computer Science - Stanford University',
   certifications: ['AWS Certified', 'React Professional'],
@@ -522,11 +545,20 @@ export const skillsCompatibilityData = [
   { skill: 'AWS', match: 75, required: false },
 ];
 
-// Recruiter Dashboard data
+// Recruiter Dashboard data - 12 posted jobs with full structure
 export const mockPostedJobs = [
-  { id: '1', title: 'Senior React Developer', company: 'TechFlow Inc', applicants: 24, views: 156, status: 'active', postedDate: '2025-03-01' },
-  { id: '2', title: 'Full Stack Engineer', company: 'TechFlow Inc', applicants: 18, views: 98, status: 'active', postedDate: '2025-02-28' },
-  { id: '3', title: 'DevOps Engineer', company: 'TechFlow Inc', applicants: 8, views: 45, status: 'active', postedDate: '2025-02-25' },
+  { id: '1', title: 'Senior React Developer', company: 'TechFlow Inc', applicants: 24, views: 156, status: 'active', postedDate: '2025-03-01', location: 'Remote', salaryRange: { min: 130000, max: 170000 }, skills: ['React', 'TypeScript', 'JavaScript'], description: 'Join our team to build cutting-edge web applications.', benefits: ['Health', '401k', 'Remote'], workType: 'Remote', employmentType: 'Full-time', deadline: '2025-03-31', industry: 'Technology' },
+  { id: '2', title: 'Full Stack Engineer', company: 'TechFlow Inc', applicants: 18, views: 98, status: 'active', postedDate: '2025-02-28', location: 'San Francisco, CA', salaryRange: { min: 140000, max: 190000 }, skills: ['React', 'Python', 'AWS'], description: 'Build and scale our platform with modern tech stack.', benefits: ['Equity', 'PTO', 'Gym'], workType: 'Hybrid', employmentType: 'Full-time', deadline: '2025-03-25', industry: 'Technology' },
+  { id: '3', title: 'DevOps Engineer', company: 'TechFlow Inc', applicants: 8, views: 45, status: 'active', postedDate: '2025-02-25', location: 'Seattle, WA', salaryRange: { min: 130000, max: 175000 }, skills: ['AWS', 'Kubernetes', 'Terraform'], description: 'Manage cloud infrastructure and CI/CD pipelines.', benefits: ['Remote', 'Stock', 'Certs'], workType: 'Remote', employmentType: 'Full-time', deadline: '2025-03-28', industry: 'Technology' },
+  { id: '4', title: 'Frontend Developer', company: 'TechFlow Inc', applicants: 15, views: 89, status: 'active', postedDate: '2025-02-27', location: 'New York, NY', salaryRange: { min: 110000, max: 150000 }, skills: ['React', 'CSS', 'Figma'], description: 'Create beautiful user interfaces for our products.', benefits: ['Health', 'Learning'], workType: 'Hybrid', employmentType: 'Full-time', deadline: '2025-03-20', industry: 'Technology' },
+  { id: '5', title: 'Backend Engineer', company: 'TechFlow Inc', applicants: 12, views: 67, status: 'active', postedDate: '2025-02-26', location: 'Austin, TX', salaryRange: { min: 125000, max: 165000 }, skills: ['Node.js', 'PostgreSQL', 'Redis'], description: 'Design and build scalable backend services.', benefits: ['Health', '401k'], workType: 'Remote', employmentType: 'Full-time', deadline: '2025-03-22', industry: 'Technology' },
+  { id: '6', title: 'Data Scientist', company: 'TechFlow Inc', applicants: 9, views: 52, status: 'active', postedDate: '2025-03-02', location: 'Remote', salaryRange: { min: 140000, max: 190000 }, skills: ['Python', 'ML', 'SQL'], description: 'Build ML models to drive business insights.', benefits: ['Equity', 'Learning'], workType: 'Remote', employmentType: 'Full-time', deadline: '2025-03-30', industry: 'Technology' },
+  { id: '7', title: 'Product Manager', company: 'TechFlow Inc', applicants: 11, views: 71, status: 'active', postedDate: '2025-02-27', location: 'San Francisco, CA', salaryRange: { min: 130000, max: 170000 }, skills: ['Product', 'Agile', 'Analytics'], description: 'Own the product roadmap for our core platform.', benefits: ['Equity', 'Health', 'PTO'], workType: 'Hybrid', employmentType: 'Full-time', deadline: '2025-03-25', industry: 'Technology' },
+  { id: '8', title: 'UX Designer', company: 'TechFlow Inc', applicants: 7, views: 38, status: 'active', postedDate: '2025-02-28', location: 'Austin, TX', salaryRange: { min: 95000, max: 135000 }, skills: ['Figma', 'User Research', 'Prototyping'], description: 'Create intuitive user experiences.', benefits: ['Flexible', 'Creative Budget'], workType: 'Hybrid', employmentType: 'Full-time', deadline: '2025-03-22', industry: 'Design' },
+  { id: '9', title: 'QA Engineer', company: 'TechFlow Inc', applicants: 6, views: 41, status: 'active', postedDate: '2025-03-01', location: 'Boston, MA', salaryRange: { min: 90000, max: 125000 }, skills: ['Testing', 'Automation', 'Selenium'], description: 'Ensure quality across our product suite.', benefits: ['Health', 'Remote'], workType: 'Remote', employmentType: 'Full-time', deadline: '2025-03-26', industry: 'Technology' },
+  { id: '10', title: 'Marketing Manager', company: 'TechFlow Inc', applicants: 5, views: 33, status: 'active', postedDate: '2025-02-26', location: 'Los Angeles, CA', salaryRange: { min: 90000, max: 130000 }, skills: ['Digital Marketing', 'SEO', 'Analytics'], description: 'Lead marketing campaigns and brand growth.', benefits: ['Health', 'Marketing Budget'], workType: 'Hybrid', employmentType: 'Full-time', deadline: '2025-03-20', industry: 'Marketing' },
+  { id: '11', title: 'HR Business Partner', company: 'TechFlow Inc', applicants: 4, views: 28, status: 'active', postedDate: '2025-02-28', location: 'Chicago, IL', salaryRange: { min: 80000, max: 110000 }, skills: ['Talent Acquisition', 'HRIS', 'Coaching'], description: 'Partner with leaders on people strategy.', benefits: ['Health', '401k', 'Development'], workType: 'On-site', employmentType: 'Full-time', deadline: '2025-03-22', industry: 'Human Resources' },
+  { id: '12', title: 'Content Writer', company: 'TechFlow Inc', applicants: 8, views: 44, status: 'active', postedDate: '2025-03-02', location: 'Remote', salaryRange: { min: 60000, max: 85000 }, skills: ['Copywriting', 'SEO', 'Content Strategy'], description: 'Create engaging content for blog and marketing.', benefits: ['Remote', 'Flexible'], workType: 'Remote', employmentType: 'Full-time', deadline: '2025-03-28', industry: 'Marketing' },
 ];
 
 export const mockCandidates = [
@@ -539,31 +571,84 @@ export const mockCandidates = [
   { id: 'c7', fullName: 'Chris Taylor', email: 'chris.taylor@email.com', phone: '+1 (555) 789-0123', matchScore: 87, experience: '5 years', skills: ['Node.js', 'PostgreSQL', 'Docker'], location: 'Remote', availability: '2 weeks', jobId: '2', education: 'B.S. Computer Science - Georgia Tech', linkedIn: 'linkedin.com/in/christaylor', summary: 'Backend engineer specializing in Node.js and databases. Led team of 4 developers.', responseTimeHours: 8, appliedAt: '2025-03-01T12:00:00Z' },
 ];
 
+export const mockCandidateAnalytics = {
+  profileViews: 24,
+  applicationsSent: 8,
+  interviewRate: '38%',
+};
+
 export const mockRecruiterAnalytics = {
-  totalApplicants: 50,
-  activeJobs: 3,
-  interviewsScheduled: 12,
+  totalApplicants: 128,
+  activeJobs: 12,
+  interviewsScheduled: 24,
   avgTimeToHire: '14 days',
   topPerformingJob: 'Senior React Developer',
   avgResponseTime: '6.5 hrs',
+  applicationsPerJob: [
+    { jobTitle: 'Senior React Developer', applicants: 24, jobId: '1' },
+    { jobTitle: 'Full Stack Engineer', applicants: 18, jobId: '2' },
+    { jobTitle: 'DevOps Engineer', applicants: 8, jobId: '3' },
+    { jobTitle: 'Frontend Developer', applicants: 15, jobId: '4' },
+    { jobTitle: 'Backend Engineer', applicants: 12, jobId: '5' },
+    { jobTitle: 'Data Scientist', applicants: 9, jobId: '6' },
+    { jobTitle: 'Product Manager', applicants: 11, jobId: '7' },
+    { jobTitle: 'UX Designer', applicants: 7, jobId: '8' },
+    { jobTitle: 'QA Engineer', applicants: 6, jobId: '9' },
+    { jobTitle: 'Marketing Manager', applicants: 5, jobId: '10' },
+    { jobTitle: 'HR Business Partner', applicants: 4, jobId: '11' },
+    { jobTitle: 'Content Writer', applicants: 8, jobId: '12' },
+  ],
+  topCandidates: [
+    { name: 'Alex Johnson', matchScore: 95, jobTitle: 'Senior React Developer' },
+    { name: 'Maria Garcia', matchScore: 92, jobTitle: 'Senior React Developer' },
+    { name: 'Emily Brown', matchScore: 90, jobTitle: 'Full Stack Engineer' },
+  ],
 };
 
 export const mockConversations = [
-  { id: '1', name: 'Sarah Chen', company: 'TechFlow Inc', lastMessage: 'Looking forward to our call tomorrow!', time: '2h ago', unread: true, avatar: 'S' },
-  { id: '2', name: 'Mike Johnson', company: 'InnovateLabs', lastMessage: 'Your profile looks great. Let me know your availability.', time: '1d ago', unread: false, avatar: 'M' },
-  { id: '3', name: 'Emma Wilson', company: 'DesignFirst', lastMessage: 'We have reviewed your application.', time: '2d ago', unread: false, avatar: 'E' },
+  { id: '1', name: 'Sarah Chen', company: 'TechFlow Inc', role: 'recruiter', title: 'Senior Talent Acquisition Partner', lastMessage: 'Looking forward to our call tomorrow!', time: '2h ago', unread: true, avatar: 'S', jobTitle: 'Senior React Developer', location: 'San Francisco, CA', experience: '8 years in tech recruiting', linkedIn: 'linkedin.com/in/sarahchen' },
+  { id: '2', name: 'Mike Johnson', company: 'InnovateLabs', role: 'recruiter', title: 'Technical Recruiter', lastMessage: 'Your profile looks great. Let me know your availability.', time: '1d ago', unread: false, avatar: 'M', jobTitle: 'Full Stack Engineer', location: 'Remote', experience: '5 years recruiting', linkedIn: 'linkedin.com/in/mikejohnson' },
+  { id: '3', name: 'Emma Wilson', company: 'DesignFirst', role: 'recruiter', title: 'HR & Talent Lead', lastMessage: 'We have reviewed your application.', time: '2d ago', unread: false, avatar: 'E', jobTitle: 'Frontend Developer', location: 'New York, NY', experience: '6 years in design hiring', linkedIn: 'linkedin.com/in/emmawilson' },
+  { id: '4', name: 'David Park', company: 'GlobalTech', role: 'recruiter', title: 'Engineering Recruiter', lastMessage: 'Would you be open to a 15-min intro call this week?', time: '3h ago', unread: true, avatar: 'D', jobTitle: 'Software Engineer - Remote', location: 'Austin, TX', experience: '4 years', linkedIn: 'linkedin.com/in/davidpark' },
+  { id: '5', name: 'Lisa Martinez', company: 'DataDrive Inc', role: 'recruiter', title: 'Data & AI Recruiter', lastMessage: 'Your ML background is exactly what we need.', time: '5h ago', unread: true, avatar: 'L', jobTitle: 'Data Scientist', location: 'Boston, MA', experience: '7 years', linkedIn: 'linkedin.com/in/lisamartinez' },
+  { id: '6', name: 'James Liu', company: 'CloudScale', role: 'recruiter', title: 'DevOps & Infrastructure Recruiter', lastMessage: 'The team loved your AWS experience. Next steps?', time: 'Yesterday', unread: false, avatar: 'J', jobTitle: 'DevOps Engineer', location: 'Seattle, WA', experience: '5 years', linkedIn: 'linkedin.com/in/jamesliu' },
+  { id: '7', name: 'Maria Garcia', company: 'InnovateLabs', role: 'jobSeeker', title: 'Full Stack Developer', lastMessage: 'Thanks for the feedback! I’ve updated my portfolio.', time: '4h ago', unread: false, avatar: 'M', location: 'Remote', experience: '4 years', skills: ['React', 'JavaScript', 'AWS'], education: 'M.S. Software Engineering - MIT' },
+  { id: '8', name: 'Chris Taylor', company: 'TechFlow Inc', role: 'jobSeeker', title: 'Backend Engineer', lastMessage: 'I applied to the Node.js role. Happy to discuss further.', time: '1d ago', unread: false, avatar: 'C', location: 'San Francisco', experience: '5 years', skills: ['Node.js', 'PostgreSQL', 'Docker'], education: 'B.S. CS - Georgia Tech' },
+  { id: '9', name: 'Emily Brown', company: 'Productify', role: 'jobSeeker', title: 'Product Manager', lastMessage: 'Following up on my application from last week.', time: '2d ago', unread: false, avatar: 'E', location: 'New York', experience: '4 years', skills: ['Product Strategy', 'Agile', 'Analytics'], education: 'MBA - Stanford' },
+  { id: '10', name: 'Robert Kim', company: 'SecureNet', role: 'recruiter', title: 'Security & Compliance Recruiter', lastMessage: 'We’d like to move you to the final round.', time: '6h ago', unread: true, avatar: 'R', jobTitle: 'Cybersecurity Analyst', location: 'Washington, DC', experience: '9 years', linkedIn: 'linkedin.com/in/robertkim' },
 ];
 
 export const mockChatMessages = {
   '1': [
-    { id: 'm1', sender: 'recruiter', text: "Hi! Thanks for applying. We'd like to schedule an interview. Are you available this week?", time: 'Yesterday, 2:30 PM' },
+    { id: 'm1', sender: 'recruiter', text: "Hi Alex! Thanks for applying to our Senior React Developer role. We'd like to schedule an interview. Are you available this week?", time: 'Yesterday, 2:30 PM' },
     { id: 'm2', sender: 'user', text: "Yes, I'm available! How about Thursday afternoon?", time: 'Yesterday, 3:15 PM' },
-    { id: 'm3', sender: 'recruiter', text: 'Looking forward to our call tomorrow!', time: '2 hours ago' },
+    { id: 'm3', sender: 'recruiter', text: 'Perfect! I’ve sent a calendar invite for Thursday 2 PM PST. Looking forward to our call tomorrow!', time: '2 hours ago' },
   ],
   '2': [
-    { id: 'm4', sender: 'recruiter', text: 'Your profile looks great. Let me know your availability for a quick call.', time: '1 day ago' },
+    { id: 'm4', sender: 'recruiter', text: 'Your profile looks great. Let me know your availability for a quick call to discuss the Full Stack Engineer role.', time: '1 day ago' },
   ],
   '3': [
-    { id: 'm5', sender: 'recruiter', text: 'We have reviewed your application and would like to move forward.', time: '2 days ago' },
+    { id: 'm5', sender: 'recruiter', text: 'We have reviewed your application for Frontend Developer and would like to move forward. I’ll send over the next steps.', time: '2 days ago' },
+  ],
+  '4': [
+    { id: 'm6', sender: 'recruiter', text: 'Hi! I came across your profile for our Software Engineer role. Would you be open to a 15-min intro call this week?', time: '3 hours ago' },
+  ],
+  '5': [
+    { id: 'm7', sender: 'recruiter', text: 'Your ML background is exactly what we need for the Data Scientist position. Can we schedule a technical chat?', time: '5 hours ago' },
+  ],
+  '6': [
+    { id: 'm8', sender: 'recruiter', text: 'The team loved your AWS and Kubernetes experience. What are the next steps for you?', time: 'Yesterday' },
+  ],
+  '7': [
+    { id: 'm9', sender: 'user', text: 'Thanks for the feedback on my application! I’ve updated my portfolio with the new project.', time: '4 hours ago' },
+  ],
+  '8': [
+    { id: 'm10', sender: 'user', text: 'I applied to the Node.js role. Happy to discuss further or do a technical screen.', time: '1 day ago' },
+  ],
+  '9': [
+    { id: 'm11', sender: 'user', text: 'Following up on my Product Manager application from last week. Let me know if you need anything else.', time: '2 days ago' },
+  ],
+  '10': [
+    { id: 'm12', sender: 'recruiter', text: 'Great news! We’d like to move you to the final round for the Cybersecurity Analyst role. I’ll send the details.', time: '6 hours ago' },
   ],
 };

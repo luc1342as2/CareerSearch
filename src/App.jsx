@@ -14,6 +14,7 @@ import Profile from './pages/Profile';
 import Messages from './pages/Messages';
 import Account from './pages/Account';
 import RecruiterDashboard from './pages/RecruiterDashboard';
+import RecruiterJobPost from './pages/RecruiterJobPost';
 import Notifications from './pages/Notifications';
 import Pricing from './pages/Pricing';
 import Privacy from './pages/Privacy';
@@ -21,6 +22,7 @@ import Terms from './pages/Terms';
 import Help from './pages/Help';
 import Contact from './pages/Contact';
 import Blog from './pages/Blog';
+import Roadmap from './pages/Roadmap';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Placeholder from './pages/Placeholder';
@@ -46,6 +48,7 @@ function App() {
               <Route path="/messages" element={<RequireLogin><Messages /></RequireLogin>} />
               <Route path="/account" element={<RequireLogin><Account /></RequireLogin>} />
               <Route path="/recruiter" element={<ProtectedRoute requireRecruiter><RecruiterDashboard /></ProtectedRoute>} />
+              <Route path="/recruiter/jobs/:id" element={<ProtectedRoute requireRecruiter><RecruiterJobPost /></ProtectedRoute>} />
               <Route path="/notifications" element={<RequireLogin><Notifications /></RequireLogin>} />
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/privacy" element={<Privacy />} />
@@ -54,6 +57,7 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:id" element={<Blog />} />
+              <Route path="/roadmap" element={<Roadmap />} />
               <Route path="/:page" element={<Placeholder />} />
             </Routes>
           </div>

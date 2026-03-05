@@ -5,12 +5,14 @@ import { useLanguage } from '../context/LanguageContext';
 import './SkillsCompatibilityGraph.css';
 
 export default function SkillsCompatibilityGraph() {
-  const { user, jobs, getSkillsCompatibility } = useApp();
+  const { user, getSkillsCompatibility } = useApp();
   const { t } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   const data = getSkillsCompatibility();
-  const profileStrength = user?.profileStrength ?? 0;
+  const profileStrength = user?.cvUploaded && data.length > 0
+    ? Math.round(data.reduce((sum, item) => sum + item.match, 0) / data.length)
+    : (user?.profileStrength ?? 0);
 
   useEffect(() => {
     setMounted(true);
