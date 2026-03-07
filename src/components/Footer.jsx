@@ -23,7 +23,7 @@ export default function Footer() {
           <Link to="/contact">{t('footer.contact')}</Link>
         </div>
         <p className="footer-copyright">
-          © 2024 All rights Reserved Lucas Ghigli
+          {t('footer.copyright')}
         </p>
       </div>
     </footer>
